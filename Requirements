@@ -1,0 +1,16 @@
+#Requirements
+### Non-Functional
+1.	It should take less than 10 minutes to understand and be able to play this game.
+2.	Response time should be less than 2 seconds.
+
+### Functional
+1.	It is a text based game.
+2.	It has a combat system.
+3.	It has an inventory system.
+4.	It is possible to move between stages.
+5.	Includes help to explain different aspects of the game, such as possible commands.
+6.	Has a save function.
+7.	Capable of loading different level (Maps) or save files.
+8.	Can have custom (user made) content (Objects/Maps/Monsters).
+9.	Has multiple game modes.
+10.	Has capability to generate “
