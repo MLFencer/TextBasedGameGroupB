@@ -5,9 +5,17 @@
 3. As a player I want to create a character with a unique name I create. :)
 4. As a player I want to have a variety of different background and font themes so I can pick one that lets me play the most comfortably. :)
 5. (1) As a player I would like to type my commands into the text box and submit it with "ENTER". :)
+--Switch for commands
+--List of Commands
+
 6. As a player I would like to click on the directions I want to go so I don't have to type it every time. :) 
-7. As a player I would like to see what current actions I have available to me so I can strategically decide what to do next. :) 
-8. As a player I would like to view my current inventory so I know what I have and what I might need. :)
+7. (3) As a player I would like to see what current actions I have available to me so I can strategically decide what to do next. :) 
+--help list
+--adaptive
+8. (4) As a player I would like to view my current inventory so I know what I have and what I might need. :)
+--items
+--view
+-- add items 
 9. As a player I would like to click the red search button to search the room so I don't have to type it. :)
 10. As a player I want to see my previous actions and events so I know if I made a wrong move.  :)
 11. As a player I want to be able to drop inventory items so I can make room for better stuff. :|
@@ -19,7 +27,11 @@
 17. As a player I want to view my current level so I know how much progress I made. :) 
 18. As a player I want to view how close to leveling up I am so I know how much it will take to level up.:)
 19. As a player I want to see the level of a weapon so I know if I can use it. :)
-20. As a player I would like to attack so I can kill before I get killed. :|
+20. (2) As a player I would like to attack so I can kill before I get killed. :|
+--Enemies
+--add to switch
+--health
+--damage
 21. As a player I would like to defend so I can reduce the amount of damage done to me. :(
 22. As a player I want to see how many times I died and survived so I can compare my performance to my friends. :)
 23. As a player I would like to equip different gear I find around the world so I can improve my survivability. :|
