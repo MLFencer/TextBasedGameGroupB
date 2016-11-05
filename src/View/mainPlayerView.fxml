@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -14,7 +15,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="512.0" prefWidth="594.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.MainController">
+<AnchorPane prefHeight="512.0" prefWidth="594.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.MainController">
    <children>
       <GridPane fx:id="mainPlayerView" layoutX="-6.0" prefHeight="512.0" prefWidth="594.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
@@ -26,11 +27,13 @@
         </columnConstraints>
         <rowConstraints>
             <RowConstraints maxHeight="192.0" minHeight="3.0" prefHeight="58.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="351.0" minHeight="10.0" prefHeight="346.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="154.0" minHeight="10.0" prefHeight="102.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="351.0" minHeight="10.0" prefHeight="271.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="351.0" minHeight="10.0" prefHeight="85.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="351.0" minHeight="0.0" prefHeight="5.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="154.0" minHeight="0.0" prefHeight="128.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <GridPane fx:id="mainCompassController" GridPane.columnIndex="3" GridPane.rowIndex="2">
+            <GridPane fx:id="mainCompassController" prefHeight="112.0" prefWidth="254.0" GridPane.columnIndex="3" GridPane.rowIndex="4">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="100.0" />
@@ -42,27 +45,30 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button fx:id="btnNorth" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#clickOnCompass" onKeyPressed="#clickOnCompass" prefHeight="30.0" prefWidth="186.0" text="North" GridPane.columnIndex="1">
+                  <Button fx:id="btnNorth" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onPlayerAction" onKeyPressed="#onPlayerAction" prefHeight="30.0" prefWidth="186.0" text="North" GridPane.columnIndex="1" GridPane.valignment="BOTTOM">
                      <GridPane.margin>
-                        <Insets />
+                        <Insets bottom="1.0" />
                      </GridPane.margin>
                   </Button>
-                  <Button fx:id="btnWest" mnemonicParsing="false" onAction="#clickOnCompass" prefHeight="30.0" prefWidth="118.0" text="West" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+                  <Button fx:id="btnWest" mnemonicParsing="false" onAction="#onPlayerAction" prefHeight="30.0" prefWidth="118.0" text="West" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                      <GridPane.margin>
-                        <Insets right="3.0" />
+                        <Insets right="1.0" />
                      </GridPane.margin></Button>
                   <Button fx:id="btnAction" mnemonicParsing="false" prefHeight="30.0" prefWidth="133.0" text="Search" textFill="#da0909" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <font>
                         <Font size="11.0" />
                      </font></Button>
-                  <Button fx:id="btnEast" alignment="CENTER" mnemonicParsing="false" onAction="#clickOnCompass" prefHeight="30.0" prefWidth="110.0" text="East" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                  <Button fx:id="btnEast" alignment="CENTER" mnemonicParsing="false" onAction="#onPlayerAction" prefHeight="30.0" prefWidth="110.0" text="East" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <GridPane.margin>
-                        <Insets left="3.0" />
+                        <Insets left="1.0" />
                      </GridPane.margin></Button>
-                  <Button fx:id="btnSouth" mnemonicParsing="false" onAction="#clickOnCompass" prefHeight="30.0" prefWidth="131.0" text="South" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Button fx:id="btnSouth" mnemonicParsing="false" onAction="#onPlayerAction" prefHeight="30.0" prefWidth="131.0" text="South" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                     <GridPane.margin>
+                        <Insets top="1.0" />
+                     </GridPane.margin></Button>
                </children>
             </GridPane>
-            <TabPane fx:id="tabMenu" prefHeight="200.0" prefWidth="200.0" side="BOTTOM" tabClosingPolicy="UNAVAILABLE" GridPane.columnIndex="3" GridPane.rowIndex="1">
+            <TabPane fx:id="tabMenu" prefHeight="256.0" prefWidth="254.0" side="BOTTOM" tabClosingPolicy="UNAVAILABLE" GridPane.columnIndex="3" GridPane.rowIndex="1">
               <tabs>
                 <Tab fx:id="tabActions" text="Actions">
                      <content>
@@ -83,8 +89,8 @@
                   <Font size="42.0" />
                </font>
             </Label>
-            <TextField fx:id="txtPlayerActions" text="&gt;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <SplitPane dividerPositions="0.6363636363636364" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <TextField fx:id="txtPlayerActions" onAction="#onPlayerAction" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <SplitPane dividerPositions="0.6363636363636364" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2">
               <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="179.0" prefWidth="344.0">
                      <children>
@@ -102,6 +108,18 @@
                   </AnchorPane>
               </items>
             </SplitPane>
+            <ProgressBar fx:id="healthBar" prefHeight="18.0" prefWidth="188.0" progress="0.0" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+            <ProgressBar prefHeight="18.0" prefWidth="188.0" progress="0.0" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" fx:id="xpBar" />
+            <Label text="XP" GridPane.columnIndex="3" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+               <padding>
+                  <Insets left="5.0" />
+               </padding>
+            </Label>
+            <Label text="HP" GridPane.columnIndex="3" GridPane.rowIndex="2">
+               <padding>
+                  <Insets left="5.0" />
+               </padding>
+            </Label>
          </children>
       </GridPane>
    </children>
