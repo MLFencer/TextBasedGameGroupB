@@ -1,9 +1,13 @@
 package Model;
+import java.util.Random;
 
 public class Entity {
 	
 	private int dmg;
 	private int hp;
+	private int str;
+	private int dex;
+	private int con;
 	private String name;
 	
 	public int getDmg() {
@@ -24,10 +28,39 @@ public class Entity {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+	public int getStr() {
+		return str;
+	}
+	public void setStr(int str) {
+		this.str = str;
+	}
+	public int getDex() {
+		return dex;
+	}
+	public void setDex(int dex) {
+		this.dex = dex;
+	}
+	public int getCon() {
+		return con;
+	}
+	public void setCon(int con) {
+		this.con = con;
+	}
+
 	public int attack(){		
-		return dmg;
-		// this function is pointless so far but with more advanced combat it will come in handy
+		Random rollToHit = new Random();	
+		int hitChance = rollToHit.nextInt(20)+1;
+		
+		if(hitChance == 20){
+			return dmg*2;
+			// crit
+		}
+		if(hitChance == 1){
+			return 0;
+			// miss
+		}
+		else
+			return dmg;		
 	}
 	
 	public int takeDmg(int dmg){
@@ -42,5 +75,5 @@ public class Entity {
 		// enemy attacks
 		// player.takeDmg(enemy.attack());
 	}
-
+	
 }
