@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 public class PandorasBox {
 
-	private Enemy e1= new Enemy("Hydra",100,10,0,0,0);
-	private Enemy e2= new Enemy("Scarlac",100,10,0,0,0);
-	private Enemy e3= new Enemy("Kree Warrior",100,10,0,0,0);
-	private Enemy e4= new Enemy("Skeleton Warrior",100,10,0,0,0);
-	private Enemy e5= new Enemy("Living Armor",100,10,0,0,0);
+	private Enemy e1= new Enemy("Hydra",100,10,0,0,0,0,1);
+	private Enemy e2= new Enemy("Scarlac",100,10,0,0,0,0,1);
+	private Enemy e3= new Enemy("Kree Warrior",100,10,0,0,0,0,1);
+	private Enemy e4= new Enemy("Skeleton Warrior",100,10,0,0,0,0,1);
+	private Enemy e5= new Enemy("Living Armor",100,10,0,0,0,0,1);
 
 	private Item i1= new Item("Excalibur", 16, Item.types.Weapon);
 	private Item i2= new Item("Iron Sword",8, Item.types.Weapon);
