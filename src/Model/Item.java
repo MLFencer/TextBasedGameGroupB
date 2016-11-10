@@ -1,20 +1,30 @@
 package Model;
 
-public class Item 
+public class Item
 {
     private String name;
-    private double weight;
- 
+    private double value;
+
     public Item(String n, double a) {
         this.name = n;
-        //this.attack_power = a;
+        this.value = a;
     }
 
+	public String getName() {
+		return name;
+	}
 
-Item[] items = 
-{
-  new Item("Sword", 10), new Item("Knife", 7), new Item("Gun", 30),
-  new Item("Excalibur", 100)
-};
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public double getValue() {
+		return value;
+	}
+
+	public void setHealth(double health) {
+		this.value = health;
+	}
+
 
 }

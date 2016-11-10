@@ -5,9 +5,11 @@ import java.util.Random;
 
 public class Level {
 	final int SIZE =5; //square this to get number of rooms
+	@SuppressWarnings("rawtypes")
 	private ArrayList rooms = new ArrayList();
 
 	//Generates a Hardcoded map.
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void generateMap(){
 		for (int k=0;k<SIZE;k++){
 			rooms.add(new ArrayList<Room>());
@@ -26,24 +28,27 @@ public class Level {
 		}
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Enemy getEnemy(int x, int y){
 		ArrayList t = (ArrayList)rooms.get(x);
 		Room r = (Room)t.get(y);
 		return r.getEnemy();
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Item getItem(int x,int y){
 		ArrayList t = (ArrayList)rooms.get(x);
 		Room r = (Room)t.get(y);
 		return r.getItem();
 	}
 
+	@SuppressWarnings("rawtypes")
 	public String getRoom(int x, int y) {
         ArrayList t =(ArrayList)rooms.get(x);
         Room r =(Room)t.get(y);
         String l,m;
         try {
-           l="a "+r.getItem().toString();
+           l="a "+r.getItem().getName();
         }catch (NullPointerException e){
          l="No Loot";
         }
@@ -55,6 +60,10 @@ public class Level {
 
         return "There is " + m + " and " + l + " in the room";
     }
+
+	public int getSize(){
+		return SIZE;
+	}
 
 
 }
