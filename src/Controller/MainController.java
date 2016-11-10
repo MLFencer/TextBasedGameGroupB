@@ -30,6 +30,7 @@ public class MainController
 		//gameStatus="starting";
 		gameStatus="main";
 		level.generateMap();
+		showHelp();
 		txtAreaRoom.setText(level.getRoom(player.getX(), player.getY()));
 	}
 	public void menuSwitch(){
@@ -108,11 +109,12 @@ public void mainRunner(){
 			if(level.getEnemy(player.getX(), player.getY()).getHp() != 0)
 			{
 				gameStatus = "fighting";
+				showHelp();
 				txtAreaEvents.setText("Combat Engaged!\n");
 				txtActionLog.appendText("Combat Engaged\n");
 				txtPlayerActions.setText(command);
 				attack();
-			}				
+			}
 			break;
 
 		default:
@@ -140,17 +142,22 @@ public void attack(){
 			txtAreaEvents.appendText("Enemy attacks!\n");
 			txtAreaEvents.appendText(Integer.toString(player.takeDmg(level.getEnemy(player.getX(), player.getY()).attack())) + " damage done!\n");
 			System.out.println(player.getHp());
-			if(level.getEnemy(player.getX(), player.getY()).getHp() == 0)
+			if(level.getEnemy(player.getX(), player.getY()).getHp() == 0){
 				txtAreaEvents.appendText("The enemy died!\n");
+				gameStatus="main";
+				showHelp();
+			}
 			if(player.getHp() == 0)
-			{	
+			{
 				lblStatus.setText("YOU DIED!");
 				player.death();
 				level = null;
+				gameStatus="main";
+				showHelp();
 				level = new Level();
 				level.generateMap();
 				txtAreaEvents.setText("Welcome to Concept Killer!\nPlease Enter Commands in the TextField to Play.");
-			}	
+			}
 		}
 		else
 			lblStatus.setText("Nothing to fight!");
@@ -161,6 +168,7 @@ public void attack(){
 		break;
 	case "run":
 		gameStatus = "main";
+		showHelp();
 		txtAreaEvents.setText("Ran!");
 		txtActionLog.appendText("Bravely Ran Away\n");
 		txtActionLog.appendText("Combat Disengaged\n");
@@ -230,5 +238,15 @@ public void goEast()
 	}
 }
 
+public void showHelp(){
+	String value = "";
+	if (gameStatus == "main"){
+		value = "Aviable Actions: \n north \n south \n east \n west \n grab \n inventory \n attack";
+	}
+	else if(gameStatus == "fighting"){
+		value = "Aviable Actions: \n attack \n run";
+	}
+	txtAreaActions.setText(value);
+}
 // Method for placing text into room description
 }
