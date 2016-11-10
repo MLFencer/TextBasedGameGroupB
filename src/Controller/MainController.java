@@ -249,4 +249,12 @@ public void showHelp(){
 	txtAreaActions.setText(value);
 }
 // Method for placing text into room description
+
+
+@FXML
+public void barUpdates()
+{
+	double currentPlayerHealth = player.getHp()/100;
+	healthBar.setProgress(currentPlayerHealth);
+}
 }
