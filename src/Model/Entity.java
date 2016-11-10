@@ -1,7 +1,8 @@
 package Model;
 import java.util.Random;
 
-public class Entity {
+public class Entity 
+{
 	
 	private int dmg;
 	private int hp;
@@ -10,44 +11,67 @@ public class Entity {
 	private int con;
 	private String name;
 	
-	public int getDmg() {
+	public Entity(String nameIn, int hpIn, int dmgIn, int strIn, int dexIn, int conIn)
+	{
+		this.name = nameIn;
+		this.hp = hpIn;
+		this.dmg = dmgIn;
+		this.str = strIn;
+		this.dex = dexIn;
+		this.con = conIn;
+	}
+	
+	public int getDmg() 
+	{
 		return dmg;
 	}
-	public void setDmg(int dmg) {
+	public void setDmg(int dmg) 
+	{
 		this.dmg = dmg;
 	}
-	public int getHp() {
+	public int getHp() 
+	{
 		return hp;
 	}
-	public void setHp(int hp) {
+	public void setHp(int hp) 
+	{
 		this.hp = hp;
 	}
-	public String getName() {
+	public String getName() 
+	{
 		return name;
 	}
-	public void setName(String name) {
+	public void setName(String name) 
+	{
 		this.name = name;
 	}
-	public int getStr() {
+	public int getStr() 
+	{
 		return str;
 	}
-	public void setStr(int str) {
+	public void setStr(int str) 
+	{
 		this.str = str;
 	}
-	public int getDex() {
+	public int getDex() 
+	{
 		return dex;
 	}
-	public void setDex(int dex) {
+	public void setDex(int dex) 
+	{
 		this.dex = dex;
 	}
-	public int getCon() {
+	public int getCon() 
+	{
 		return con;
 	}
-	public void setCon(int con) {
+	public void setCon(int con) 
+	{
 		this.con = con;
 	}
 
-	public int attack(){		
+	public int attack()
+	{		
 		Random rollToHit = new Random();	
 		int hitChance = rollToHit.nextInt(20)+1;
 		
@@ -63,7 +87,8 @@ public class Entity {
 			return dmg;		
 	}
 	
-	public int takeDmg(int dmg){
+	public int takeDmg(int dmg)
+	{
 		hp -= dmg;
 		
 		System.out.println(dmg + " damage done");
