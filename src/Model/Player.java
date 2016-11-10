@@ -8,7 +8,7 @@ public class Player extends Entity
 	@SuppressWarnings("rawtypes")
 	private ArrayList inventory = new ArrayList<Item>();
 
-	public Player(String nameIn, int hpIn, int dmgIn, int strIn, int dexIn, int conIn, int xpIn, int levelIn, int xIn, int yIn) 
+	public Player(String nameIn, int hpIn, int dmgIn, int strIn, int dexIn, int conIn, double xpIn, int levelIn, int xIn, int yIn) 
 	{
 		super(nameIn, hpIn, dmgIn, strIn, dexIn, conIn, xpIn, levelIn);
 		x = xIn;
