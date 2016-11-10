@@ -103,6 +103,8 @@ public void mainRunner(){
 			txtAreaEvents.setText(s);
 			break;
 		case "attack":
+			if(level.getEnemy(player.getX(), player.getY()).getHp() == 0)
+				lblStatus.setText("Nothing to fight!");
 			if(level.getEnemy(player.getX(), player.getY()).getHp() != 0)
 			{
 				gameStatus = "fighting";
@@ -110,9 +112,7 @@ public void mainRunner(){
 				txtActionLog.appendText("Combat Engaged\n");
 				txtPlayerActions.setText(command);
 				attack();
-			}
-			else
-				lblStatus.setText("Nothing to fight!");
+			}				
 			break;
 
 		default:
