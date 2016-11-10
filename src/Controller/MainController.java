@@ -1,17 +1,16 @@
 package Controller;
 
+import Model.Level;
+import Model.Player;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 
-public class MainController 
+public class MainController
 {
 	@FXML private Button btnNorth, btnSouth, btnEast, btnWest;
 	@FXML private TextArea txtAreaRoom, txtAreaEvents, txtAreaInventory, txtAreaActions, txtActionLog, txtAreaLoot, txtAreaEnemies;
@@ -19,141 +18,152 @@ public class MainController
 	@FXML private ProgressBar healthBar, xpBar, hpEnemy;
 	@FXML private Label lblStatus;
 
-	public String gameStatus = "";
+	private Player player = new Player("name", 100, 1, 0, 0, 0, 0, 0);
+	Level level = new Level();
+	public String gameStatus;
+
+	public void initialize(){
+		txtAreaEvents.setText("Welcome to Concept Killer!\nPlease Enter Commands in the TextField to Play.");
+		//gameStatus="starting";
+		gameStatus="main";
+		level.generateMap();
+	}
+	public void menuSwitch(){
+		String command = txtPlayerActions.getText();
+		switch (command){
+		case "1":
+		case "play":
+			level.generateMap();
+			gameStatus="main";
+			mainRunner();
+			break;
+		}
+	}
 
 	// Method for assigning cardinality buttons to input into txtPlayerActions.
 	@FXML
 	public void onPlayerAction(ActionEvent event)
 	{
+		System.out.println("enter");
 		// Handle Enter Key Press
-		txtPlayerActions.setOnKeyPressed(new EventHandler<KeyEvent>() {
-		    public void handle(KeyEvent keyEvent) {
-		        if (keyEvent.getCode() == KeyCode.ENTER)  {
-		            mainRunner();
-		        }
-		    }
-		});
-		
-		if(event.getSource() == btnNorth)
+		switch (gameStatus)
 		{
-			txtPlayerActions.setText("north");
+		//case "starting":
+			//menuSwitch();
+			//break;
+		case "main":
 			mainRunner();
-		}
-		if(event.getSource() == btnSouth)
-		{
-			txtPlayerActions.setText("south");
-			mainRunner();
-		}
-		if(event.getSource() == btnEast)
-		{
-			txtPlayerActions.setText("east");
-			mainRunner();
-		}
-		if(event.getSource() == btnWest)
-		{
-			txtPlayerActions.setText("west");
-			mainRunner();
-		}
-	
-	}	
-	@FXML
-	public void mainRunner(){
-		if(!gameStatus.equals("fighting")){
-			lblStatus.setText("");
-			String command = txtPlayerActions.getText();
-			txtPlayerActions.setText("");
-			switch (command){
-			case "north":
-				goNorth();
-				break;
-			case "south":
-				goSouth();
-				break;
-			case "west":
-				goWest();
-				break;
-			case "east":
-				goEast();
-				break;
-			case "attack":
-				gameStatus = "fighting";
-				txtAreaEvents.setText("Combat Engaged!");
-				txtActionLog.appendText("Combat Engaged\n");
-				attack();
-				break;
-			default:
-				lblStatus.setText("Unknown Command!");
-				break;
-			}
-		} else{
+			break;
+		case "fighting":
 			attack();
+			break;
 		}
-		
 	}
-	@FXML
-	public void attack(){
+
+@FXML
+public void mainRunner(){
+	if(!gameStatus.equals("fighting")){
 		lblStatus.setText("");
 		String command = txtPlayerActions.getText();
 		txtPlayerActions.setText("");
-		switch(command){
+		switch (command){
+		case "north":
+			goNorth();
+			break;
+		case "south":
+			goSouth();
+			break;
+		case "west":
+			goWest();
+			break;
+		case "east":
+			goEast();
+			break;
 		case "attack":
-			txtAreaEvents.setText("Hit!");
-			txtActionLog.appendText("Hit Enemy\n");
-			txtAreaEvents.setText("You attack!");
-			txtAreaEvents.setText(Integer.toString(level.getEnemy(player.getX(), player.getY()).takeDmg(player.attack())) + " damage done!");
-			txtAreaEvents.setText("Enemy attacks!");
-			txtAreaEvents.setText(Integer.toString(player.takeDmg(level.getEnemy(player.getX(), player.getY()).attack())) + " damage done!");
-			break;
-		case "block":
-			txtAreaEvents.setText("Blocked!");
-			txtActionLog.appendText("Blocked Enemy\n");
-			break;
-		case "run":
-			gameStatus = "";
-			txtAreaEvents.setText("Ran!");
-			txtActionLog.appendText("Ran Away\n");
-			txtActionLog.appendText("Combat Disengaged\n");
+			gameStatus = "fighting";
+			txtAreaEvents.setText("Combat Engaged!");
+			txtActionLog.appendText("Combat Engaged\n");
+			txtPlayerActions.setText(command);
+			attack();
 			break;
 		default:
 			lblStatus.setText("Unknown Command!");
 			break;
-		} //more cases and more stuff coming soon.
-		/*
-		 * this will bring back the main switch instead of the atack switch.
-		 *
-		 * if (level.getMonster().getHp()<=0 || player.getHp()<=0){
-		 * 	gameStatus = "main";
-		 * }
-		 */		
-	}
-	
-	@FXML
-	public void goNorth()
-	{
-		txtAreaEvents.setText("Went North!");
-		txtActionLog.appendText("Went North\n");
-	}
-	
-	@FXML
-	public void goSouth()
-	{
-		txtAreaEvents.setText("Went South!");
-		txtActionLog.appendText("Went South\n");
-	}
-	
-	@FXML
-	public void goWest()
-	{
-		txtAreaEvents.setText("Went West!");
-		txtActionLog.appendText("Went West\n");
-	}
-	
-	@FXML
-	public void goEast()
-	{
-		txtAreaEvents.setText("Went East!");
-		txtActionLog.appendText("Went East\n");
+		}
+	} else{
+		attack();
 	}
 
-	// Method for placing text into room description
+}
+@FXML
+public void attack(){
+	lblStatus.setText("");
+	String command = txtPlayerActions.getText();
+	txtPlayerActions.setText("");
+	switch(command){
+	case "attack":
+		txtActionLog.appendText("Hit Enemy\n");
+		txtAreaEvents.appendText("You attack!\n");
+		txtAreaEvents.appendText(Integer.toString(level.getEnemy(player.getX(), player.getY()).takeDmg(player.attack())) + " damage done!\n");
+		System.out.println(level.getEnemy(player.getX(), player.getY()).getHp());
+		txtAreaEvents.appendText("Enemy attacks!\n");
+		txtAreaEvents.appendText(Integer.toString(player.takeDmg(level.getEnemy(player.getX(), player.getY()).attack())) + " damage done!\n");
+		System.out.println(player.getHp());
+		break;
+	case "block":
+		txtAreaEvents.setText("Blocked!");
+		txtActionLog.appendText("Blocked Enemy\n");
+		break;
+	case "run":
+		gameStatus = "main";
+		txtAreaEvents.setText("Ran!");
+		txtActionLog.appendText("Bravely Ran Away\n");
+		txtActionLog.appendText("Combat Disengaged\n");
+		break;
+	default:
+		lblStatus.setText("Unknown Command!");
+		break;
+	} //more cases and more stuff coming soon.
+	/*
+	 * this will bring back the main switch instead of the atack switch.
+	 *
+	 * if (level.getMonster().getHp()<=0 || player.getHp()<=0){
+	 * 	gameStatus = "main";
+	 * }
+	 */
+}
+
+@FXML
+public void goNorth()
+{
+	player.setY(player.getY()-1);
+	txtAreaEvents.setText(level.getRoom(player.getX(), player.getY()));
+	txtActionLog.appendText("North\n");
+}
+
+@FXML
+public void goSouth()
+{
+	player.setY(player.getY()+1);
+	txtAreaEvents.setText(level.getRoom(player.getX(), player.getY()));
+	txtActionLog.appendText("South\n");
+}
+
+@FXML
+public void goWest()
+{
+	player.setX(player.getX()-1);
+	txtAreaEvents.setText(level.getRoom(player.getX(), player.getY()));
+	txtActionLog.appendText("West\n");
+}
+
+@FXML
+public void goEast()
+{
+	player.setX(player.getX()+1);
+	txtAreaEvents.setText(level.getRoom(player.getX(), player.getY()));
+	txtActionLog.appendText("East\n");
+}
+
+// Method for placing text into room description
 }
