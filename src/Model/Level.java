@@ -43,6 +43,15 @@ public class Level {
 	}
 
 	@SuppressWarnings("rawtypes")
+	public Item removeItem(int x, int y){
+		ArrayList t = (ArrayList)rooms.get(x);
+		Room r = (Room)t.get(y);
+		Item i=r.getItem();
+		r.setItem(null);
+		return i;
+	}
+
+	@SuppressWarnings("rawtypes")
 	public String getRoom(int x, int y) {
         ArrayList t =(ArrayList)rooms.get(x);
         Room r =(Room)t.get(y);
