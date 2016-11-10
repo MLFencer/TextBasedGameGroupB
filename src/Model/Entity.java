@@ -9,9 +9,28 @@ public class Entity
 	private int str;
 	private int dex;
 	private int con;
+	private double xp;
+	private int level;
+	
+	public double getXp() {
+		return xp;
+	}
+
+	public void setXp(double xp) {
+		this.xp = xp;
+	}
+
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
+	}
+
 	private String name;
 	
-	public Entity(String nameIn, int hpIn, int dmgIn, int strIn, int dexIn, int conIn)
+	public Entity(String nameIn, int hpIn, int dmgIn, int strIn, int dexIn, int conIn, double xpIn, int levelIn)
 	{
 		this.name = nameIn;
 		this.hp = hpIn;
@@ -19,6 +38,8 @@ public class Entity
 		this.str = strIn;
 		this.dex = dexIn;
 		this.con = conIn;
+		this.xp = xpIn;
+		this.level = levelIn;
 	}
 	
 	public int getDmg() 
@@ -92,14 +113,33 @@ public class Entity
 		hp -= dmg;
 		if(hp <= 0)
 			hp = 0;
-		System.out.println(dmg + " damage done");
 		return dmg;
+	}
+	
+	public String gainXp(double xpDrop)
+	{		
+		String gainedXp = xpDrop + " gained";
 		
-		// attack flow will look something like this:
-		// player attacks
-		// enemy.takeDmg(player.attack());
-		// enemy attacks
-		// player.takeDmg(enemy.attack());
+		double currentLvl = 100/1.5;
+		final double MULTIPLIER = 1.5;
+		double nextLvl = currentLvl * MULTIPLIER;
+		setXp(xp + xpDrop);
+				
+			
+		if (xp >= nextLvl)
+		{
+			levelUp();
+			currentLvl = nextLvl;
+		}	
+		return gainedXp;
+	}	
+	
+	public String levelUp()
+	{
+		String levelUp = "Level up!";
+		setLevel(level + 1);
+		
+		return levelUp;
 	}
 	
 }
