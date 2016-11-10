@@ -11,7 +11,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
-public class MainController {
+public class MainController 
+{
 	@FXML private Button btnNorth, btnSouth, btnEast, btnWest;
 	@FXML private TextArea txtAreaRoom, txtAreaEvents, txtAreaInventory, txtAreaActions, txtActionLog, txtAreaLoot, txtAreaEnemies;
 	@FXML private TextField txtPlayerActions;
@@ -77,9 +78,17 @@ public class MainController {
 			case "attack":
 				gameStatus = "fighting";
 				txtAreaEvents.setText("Combat Engaged!");
+<<<<<<< HEAD
 				txtActionLog.appendText("Combat Engaged\n");
 				//something along the lines of
 				// "level.getmonster().takedamage();
+=======
+				txtAreaEvents.setText("You attack!");
+				txtAreaEvents.setText(Integer.toString(level.getEnemy(player.getX(), player.getY()).takeDmg(player.attack())) + " damage done!");
+				txtAreaEvents.setText("Enemy attacks!");
+				txtAreaEvents.setText(Integer.toString(player.takeDmg(level.getEnemy(player.getX(), player.getY()).attack())) + " damage done!");
+				attack();
+>>>>>>> origin/master
 				break;
 			default:
 				lblStatus.setText("Unknown Command!");
@@ -152,7 +161,7 @@ public class MainController {
 		txtActionLog.appendText("Went East\n");
 	}
 
-
+	// 
 
 	// Method for placing text into room description
 }
