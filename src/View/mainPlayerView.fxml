@@ -45,12 +45,12 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button fx:id="btnNorth" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onPlayerAction" onKeyPressed="#onPlayerAction" prefHeight="30.0" prefWidth="186.0" text="North" GridPane.columnIndex="1" GridPane.valignment="BOTTOM">
+                  <Button fx:id="btnNorth" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#goNorth" onKeyPressed="#onPlayerAction" prefHeight="30.0" prefWidth="186.0" text="North" GridPane.columnIndex="1" GridPane.valignment="BOTTOM">
                      <GridPane.margin>
                         <Insets bottom="1.0" />
                      </GridPane.margin>
                   </Button>
-                  <Button fx:id="btnWest" mnemonicParsing="false" onAction="#onPlayerAction" prefHeight="30.0" prefWidth="118.0" text="West" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+                  <Button fx:id="btnWest" mnemonicParsing="false" onAction="#goWest" prefHeight="30.0" prefWidth="118.0" text="West" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets right="1.0" />
                      </GridPane.margin></Button>
@@ -58,11 +58,11 @@
                      <font>
                         <Font size="11.0" />
                      </font></Button>
-                  <Button fx:id="btnEast" alignment="CENTER" mnemonicParsing="false" onAction="#onPlayerAction" prefHeight="30.0" prefWidth="110.0" text="East" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                  <Button fx:id="btnEast" alignment="CENTER" mnemonicParsing="false" onAction="#goEast" prefHeight="30.0" prefWidth="110.0" text="East" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets left="1.0" />
                      </GridPane.margin></Button>
-                  <Button fx:id="btnSouth" mnemonicParsing="false" onAction="#onPlayerAction" prefHeight="30.0" prefWidth="131.0" text="South" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                  <Button fx:id="btnSouth" mnemonicParsing="false" onAction="#goSouth" prefHeight="30.0" prefWidth="131.0" text="South" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="TOP">
                      <GridPane.margin>
                         <Insets top="1.0" />
                      </GridPane.margin></Button>
