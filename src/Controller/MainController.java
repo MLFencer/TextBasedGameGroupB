@@ -21,7 +21,7 @@ public class MainController
 	@FXML private ProgressBar healthBar, xpBar, hpEnemy;
 	@FXML private Label lblStatus;
 
-	private Player player = new Player("name", 100, 30, 0, 0, 0, 0, 0);
+	private Player player = new Player("name", 100, 30, 0, 0, 0, 0, 0, 0, 0);
 	Level level = new Level();
 	public String gameStatus;
 
