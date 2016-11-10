@@ -84,8 +84,14 @@ public void mainRunner(){
 			goEast();
 			break;
 		case "grab":
-			player.addItem(level.removeItem(player.getX(), player.getY()));
+			Item item=level.removeItem(player.getX(), player.getY());
+			player.addItem(item);
 			txtAreaRoom.setText(level.getRoom(player.getX(), player.getY()));
+			if(txtAreaInventory.getText().equals("Current Inventory:")){
+				txtAreaInventory.setText(item.getName()+"\n");
+			}else{
+				txtAreaInventory.appendText(item.getName()+"\n");
+			}
 			break;
 		case "inventory":
 			@SuppressWarnings("unchecked")
