@@ -1,5 +1,8 @@
 package Controller;
 
+import java.util.ArrayList;
+
+import Model.Item;
 import Model.Level;
 import Model.Player;
 import javafx.event.ActionEvent;
@@ -12,7 +15,7 @@ import javafx.scene.control.TextField;
 
 public class MainController
 {
-	@FXML private Button btnNorth, btnSouth, btnEast, btnWest;
+	@FXML private Button btnNorth, btnSouth, btnEast, btnWest, btnAction;
 	@FXML private TextArea txtAreaRoom, txtAreaEvents, txtAreaInventory, txtAreaActions, txtActionLog, txtAreaLoot, txtAreaEnemies;
 	@FXML private TextField txtPlayerActions;
 	@FXML private ProgressBar healthBar, xpBar, hpEnemy;
@@ -27,6 +30,7 @@ public class MainController
 		//gameStatus="starting";
 		gameStatus="main";
 		level.generateMap();
+		txtAreaRoom.setText(level.getRoom(player.getX(), player.getY()));
 	}
 	public void menuSwitch(){
 		String command = txtPlayerActions.getText();
@@ -79,6 +83,19 @@ public void mainRunner(){
 		case "east":
 			goEast();
 			break;
+		case "grab":
+			player.addItem(level.removeItem(player.getX(), player.getY()));
+			txtAreaRoom.setText(level.getRoom(player.getX(), player.getY()));
+			break;
+		case "inventory":
+			@SuppressWarnings("unchecked")
+			ArrayList<Item> i = player.getInventory();
+			String s=" ";
+			for (Item x: i){
+				s+=(x.getName()+", ");
+			}
+			txtAreaEvents.setText(s);
+			break;
 		case "attack":
 			if(level.getEnemy(player.getX(), player.getY()).getHp() != 0)
 			{
@@ -91,7 +108,7 @@ public void mainRunner(){
 			else
 				lblStatus.setText("Nothing to fight!");
 			break;
-				
+
 		default:
 			lblStatus.setText("Unknown Command!");
 			break;
@@ -149,33 +166,49 @@ public void attack(){
 @FXML
 public void goNorth()
 {
-	player.setY(player.getY()-1);
-	txtAreaEvents.setText(level.getRoom(player.getX(), player.getY()));
-	txtActionLog.appendText("North\n");
+	if(player.getY()>0){
+		player.setY(player.getY()-1);
+		txtAreaRoom.setText(level.getRoom(player.getX(), player.getY()));
+		txtActionLog.appendText("North\n");
+	} else{
+		txtAreaEvents.setText("Can't Move North!");
+	}
 }
 
 @FXML
 public void goSouth()
 {
-	player.setY(player.getY()+1);
-	txtAreaEvents.setText(level.getRoom(player.getX(), player.getY()));
-	txtActionLog.appendText("South\n");
+	if(player.getY()<level.getSize()-1){
+		player.setY(player.getY()+1);
+		txtAreaRoom.setText(level.getRoom(player.getX(), player.getY()));
+		txtActionLog.appendText("South\n");
+	}else{
+		txtAreaEvents.setText("Can't Move South!");
+	}
 }
 
 @FXML
 public void goWest()
 {
-	player.setX(player.getX()-1);
-	txtAreaEvents.setText(level.getRoom(player.getX(), player.getY()));
-	txtActionLog.appendText("West\n");
+	if (player.getX()>0){
+		player.setX(player.getX()-1);
+		txtAreaRoom.setText(level.getRoom(player.getX(), player.getY()));
+		txtActionLog.appendText("West\n");
+	}else{
+		txtAreaEvents.setText("Can't Move West!");
+	}
 }
 
 @FXML
 public void goEast()
 {
-	player.setX(player.getX()+1);
-	txtAreaEvents.setText(level.getRoom(player.getX(), player.getY()));
-	txtActionLog.appendText("East\n");
+	if (player.getX()<level.getSize()-1){
+		player.setX(player.getX()+1);
+		txtAreaRoom.setText(level.getRoom(player.getX(), player.getY()));
+		txtActionLog.appendText("East\n");
+	}else{
+		txtAreaEvents.setText("Can't Move East!");
+	}
 }
 
 // Method for placing text into room description
