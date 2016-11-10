@@ -18,7 +18,7 @@ public class MainController
 	@FXML private ProgressBar healthBar, xpBar, hpEnemy;
 	@FXML private Label lblStatus;
 
-	private Player player = new Player("name", 100, 1, 0, 0, 0, 0, 0);
+	private Player player = new Player("name", 100, 30, 0, 0, 0, 0, 0);
 	Level level = new Level();
 	public String gameStatus;
 
@@ -33,7 +33,7 @@ public class MainController
 		switch (command){
 		case "1":
 		case "play":
-			level.generateMap();
+			level.generateMap(); // need to make sure there are no enemies in starting room
 			gameStatus="main";
 			mainRunner();
 			break;
@@ -80,12 +80,18 @@ public void mainRunner(){
 			goEast();
 			break;
 		case "attack":
-			gameStatus = "fighting";
-			txtAreaEvents.setText("Combat Engaged!");
-			txtActionLog.appendText("Combat Engaged\n");
-			txtPlayerActions.setText(command);
-			attack();
+			if(level.getEnemy(player.getX(), player.getY()).getHp() != 0)
+			{
+				gameStatus = "fighting";
+				txtAreaEvents.setText("Combat Engaged!\n");
+				txtActionLog.appendText("Combat Engaged\n");
+				txtPlayerActions.setText(command);
+				attack();
+			}
+			else
+				lblStatus.setText("Nothing to fight!");
 			break;
+				
 		default:
 			lblStatus.setText("Unknown Command!");
 			break;
@@ -102,13 +108,20 @@ public void attack(){
 	txtPlayerActions.setText("");
 	switch(command){
 	case "attack":
-		txtActionLog.appendText("Hit Enemy\n");
-		txtAreaEvents.appendText("You attack!\n");
-		txtAreaEvents.appendText(Integer.toString(level.getEnemy(player.getX(), player.getY()).takeDmg(player.attack())) + " damage done!\n");
-		System.out.println(level.getEnemy(player.getX(), player.getY()).getHp());
-		txtAreaEvents.appendText("Enemy attacks!\n");
-		txtAreaEvents.appendText(Integer.toString(player.takeDmg(level.getEnemy(player.getX(), player.getY()).attack())) + " damage done!\n");
-		System.out.println(player.getHp());
+		if(level.getEnemy(player.getX(), player.getY()).getHp() != 0)
+		{
+			txtActionLog.appendText("Hit Enemy\n");
+			txtAreaEvents.appendText("You attack!\n");
+			txtAreaEvents.appendText(Integer.toString(level.getEnemy(player.getX(), player.getY()).takeDmg(player.attack())) + " damage done!\n");
+			System.out.println(level.getEnemy(player.getX(), player.getY()).getHp());
+			txtAreaEvents.appendText("Enemy attacks!\n");
+			txtAreaEvents.appendText(Integer.toString(player.takeDmg(level.getEnemy(player.getX(), player.getY()).attack())) + " damage done!\n");
+			System.out.println(player.getHp());
+			if(level.getEnemy(player.getX(), player.getY()).getHp() == 0)
+				txtAreaEvents.appendText("The enemy died!\n");
+		}
+		else
+			lblStatus.setText("Nothing to fight!");
 		break;
 	case "block":
 		txtAreaEvents.setText("Blocked!");
