@@ -8,14 +8,12 @@ public class Player extends Entity
 	@SuppressWarnings("rawtypes")
 	private ArrayList inventory = new ArrayList<Item>();
 
-
-	public Player(String nameIn, int hpIn, int dmgIn, int strIn, int dexIn, int conIn, int xIn, int yIn)
+	public Player(String nameIn, int hpIn, int dmgIn, int strIn, int dexIn, int conIn, int xpIn, int levelIn, int xIn, int yIn) 
 	{
-		super(nameIn, hpIn, dmgIn, strIn, dexIn, conIn);
+		super(nameIn, hpIn, dmgIn, strIn, dexIn, conIn, xpIn, levelIn);
 		x = xIn;
 		y = yIn;
 	}
-
 
 	public int getX()
 	{
@@ -61,6 +59,5 @@ public class Player extends Entity
 		setHp(100);
 		inventory.clear();
 		
-	
 	}
 }
