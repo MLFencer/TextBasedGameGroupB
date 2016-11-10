@@ -89,10 +89,7 @@
                   <Font size="42.0" />
                </font>
             </Label>
-            <TextField fx:id="txtPlayerActions" onAction="#onPlayerAction" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
-               <GridPane.margin>
-                  <Insets bottom="20.0" />
-               </GridPane.margin></TextField>
+            <TextField fx:id="txtPlayerActions" onAction="#onPlayerAction" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <SplitPane dividerPositions="0.6363636363636364" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2">
               <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="179.0" prefWidth="344.0">
@@ -134,9 +131,9 @@
                   <Font size="10.0" />
                </font>
             </Label>
-            <Label fx:id="lblStatus" alignment="CENTER" prefHeight="17.0" prefWidth="286.0" textAlignment="CENTER" textFill="#f80101" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+            <Label fx:id="lblStatus" alignment="CENTER" prefHeight="17.0" prefWidth="286.0" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
                <GridPane.margin>
-                  <Insets />
+                  <Insets bottom="10.0" />
                </GridPane.margin>
             </Label>
             <Label fx:id="lblPlayerName" prefHeight="17.0" prefWidth="128.0" text="Player Name" GridPane.columnIndex="3" GridPane.rowIndex="2" GridPane.valignment="TOP">
@@ -147,16 +144,6 @@
             <Label fx:id="lblPlayerLevel" prefHeight="17.0" prefWidth="83.0" text="Level: " GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="TOP">
                <GridPane.margin>
                   <Insets top="5.0" />
-               </GridPane.margin>
-            </Label>
-            <ProgressBar fx:id="timerBar" prefHeight="18.0" prefWidth="311.0" progress="0.0" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.valignment="CENTER">
-               <GridPane.margin>
-                  <Insets bottom="50.0" />
-               </GridPane.margin>
-            </ProgressBar>
-            <Label prefHeight="17.0" prefWidth="59.0" text="Timer" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.valignment="TOP">
-               <GridPane.margin>
-                  <Insets top="10.0" />
                </GridPane.margin>
             </Label>
          </children>
