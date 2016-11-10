@@ -31,6 +31,7 @@ public class MainController
 		gameStatus="main";
 		level.generateMap();
 		showHelp();
+		barUpdates();
 		txtAreaRoom.setText(level.getRoom(player.getX(), player.getY()));
 	}
 	public void menuSwitch(){
@@ -142,6 +143,7 @@ public void attack(){
 			txtAreaEvents.appendText("Enemy attacks!\n");
 			txtAreaEvents.appendText(Integer.toString(player.takeDmg(level.getEnemy(player.getX(), player.getY()).attack())) + " damage done!\n");
 			System.out.println(player.getHp());
+			barUpdates();
 			if(level.getEnemy(player.getX(), player.getY()).getHp() == 0){
 				txtAreaEvents.appendText("The enemy died!\n");
 				gameStatus="main";
@@ -156,6 +158,7 @@ public void attack(){
 				showHelp();
 				level = new Level();
 				level.generateMap();
+				barUpdates();
 				txtAreaEvents.setText("Welcome to Concept Killer!\nPlease Enter Commands in the TextField to Play.");
 			}
 		}
@@ -194,6 +197,7 @@ public void goNorth()
 		txtAreaRoom.setText(level.getRoom(player.getX(), player.getY()));
 		txtActionLog.appendText("North\n");
 		lblStatus.setText("");
+		barUpdates();
 	} else{
 		lblStatus.setText("Can't Move North!");
 	}
@@ -207,6 +211,7 @@ public void goSouth()
 		txtAreaRoom.setText(level.getRoom(player.getX(), player.getY()));
 		txtActionLog.appendText("South\n");
 		lblStatus.setText("");
+		barUpdates();
 	}else{
 		lblStatus.setText("Can't Move South!");
 	}
@@ -220,6 +225,7 @@ public void goWest()
 		txtAreaRoom.setText(level.getRoom(player.getX(), player.getY()));
 		txtActionLog.appendText("West\n");
 		lblStatus.setText("");
+		barUpdates();
 	}else{
 		lblStatus.setText("Can't Move West!");
 	}
@@ -233,6 +239,7 @@ public void goEast()
 		txtAreaRoom.setText(level.getRoom(player.getX(), player.getY()));
 		txtActionLog.appendText("East\n");
 		lblStatus.setText("");
+		barUpdates();
 	}else{
 		lblStatus.setText("Can't Move East!");
 	}
@@ -250,11 +257,12 @@ public void showHelp(){
 }
 // Method for placing text into room description
 
-
-@FXML
 public void barUpdates()
 {
-	double currentPlayerHealth = player.getHp()/100;
+	double currentPlayerHealth = (double)player.getHp()/100;
+	double currentEnemyHealth = (double)level.getEnemy(player.getX(), player.getY()).getHp() / 100;
+
 	healthBar.setProgress(currentPlayerHealth);
+	hpEnemy.setProgress(currentEnemyHealth);
 }
 }
