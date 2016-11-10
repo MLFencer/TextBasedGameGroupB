@@ -78,17 +78,8 @@ public class MainController
 			case "attack":
 				gameStatus = "fighting";
 				txtAreaEvents.setText("Combat Engaged!");
-<<<<<<< HEAD
 				txtActionLog.appendText("Combat Engaged\n");
-				//something along the lines of
-				// "level.getmonster().takedamage();
-=======
-				txtAreaEvents.setText("You attack!");
-				txtAreaEvents.setText(Integer.toString(level.getEnemy(player.getX(), player.getY()).takeDmg(player.attack())) + " damage done!");
-				txtAreaEvents.setText("Enemy attacks!");
-				txtAreaEvents.setText(Integer.toString(player.takeDmg(level.getEnemy(player.getX(), player.getY()).attack())) + " damage done!");
 				attack();
->>>>>>> origin/master
 				break;
 			default:
 				lblStatus.setText("Unknown Command!");
@@ -108,7 +99,10 @@ public class MainController
 		case "attack":
 			txtAreaEvents.setText("Hit!");
 			txtActionLog.appendText("Hit Enemy\n");
-			//level.getmonster().takedamage();
+			txtAreaEvents.setText("You attack!");
+			txtAreaEvents.setText(Integer.toString(level.getEnemy(player.getX(), player.getY()).takeDmg(player.attack())) + " damage done!");
+			txtAreaEvents.setText("Enemy attacks!");
+			txtAreaEvents.setText(Integer.toString(player.takeDmg(level.getEnemy(player.getX(), player.getY()).attack())) + " damage done!");
 			break;
 		case "block":
 			txtAreaEvents.setText("Blocked!");
@@ -160,8 +154,6 @@ public class MainController
 		txtAreaEvents.setText("Went East!");
 		txtActionLog.appendText("Went East\n");
 	}
-
-	// 
 
 	// Method for placing text into room description
 }
