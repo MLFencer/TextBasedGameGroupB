@@ -11,6 +11,14 @@ public class Entity
 	private int con;
 	private double xp;
 	private int level;
+	private double currentLvl = 100/1.5;
+	private final double MULTIPLIER = 1.5;
+	private double nextLvl = currentLvl * MULTIPLIER;
+	
+	public double getNextLevel()
+	{
+		return nextLvl;
+	}
 	
 	public double getXp() {
 		return xp;
@@ -120,9 +128,6 @@ public class Entity
 	{		
 		String gainedXp = xpDrop + " gained";
 		
-		double currentLvl = 100/1.5;
-		final double MULTIPLIER = 1.5;
-		double nextLvl = currentLvl * MULTIPLIER;
 		setXp(xp + xpDrop);
 				
 			

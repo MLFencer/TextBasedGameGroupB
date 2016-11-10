@@ -262,8 +262,10 @@ public void barUpdates()
 {
 	double currentPlayerHealth = (double)player.getHp()/100;
 	double currentEnemyHealth = (double)level.getEnemy(player.getX(), player.getY()).getHp() / 100;
-
+	double currentXP = player.getNextLevel() / 100;
+	
 	healthBar.setProgress(currentPlayerHealth);
 	hpEnemy.setProgress(currentEnemyHealth);
+	xpBar.setProgress(currentXP);
 }
 }
