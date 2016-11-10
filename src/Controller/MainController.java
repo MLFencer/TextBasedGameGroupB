@@ -21,7 +21,7 @@ public class MainController
 	@FXML private ProgressBar healthBar, xpBar, hpEnemy;
 	@FXML private Label lblStatus;
 
-	private Player player = new Player("name", 100, 30, 0, 0, 0, 0, 0, 0, 0);
+	private Player player = new Player("name", 100, 30, 0, 0, 0, 0, 1, 0, 0);
 	Level level = new Level();
 	public String gameStatus;
 
@@ -146,6 +146,7 @@ public void attack(){
 			barUpdates();
 			if(level.getEnemy(player.getX(), player.getY()).getHp() == 0){
 				txtAreaEvents.appendText("The enemy died!\n");
+				txtAreaEvents.appendText(player.gainXp(level.getEnemy(player.getX(), player.getY()).getXp()));
 				gameStatus="main";
 				showHelp();
 			}
