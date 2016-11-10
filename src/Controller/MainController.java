@@ -10,7 +10,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
-public class MainController {
+public class MainController 
+{
 	@FXML private Button btnNorth, btnSouth, btnEast, btnWest;
 	@FXML private TextArea txtAreaRoom, txtAreaEvents, txtAreaInventory, txtAreaActions, txtAreaLog,
 	txtAreaLoot, txtAreaEnemies;
@@ -76,8 +77,10 @@ public class MainController {
 			case "attack":
 				gameStatus = "fighting";
 				txtAreaEvents.setText("Combat Engaged!");
-				//something along the lines of
-				// "level.getmonster().takedamage();
+				txtAreaEvents.setText("You attack!");
+				txtAreaEvents.setText(Integer.toString(level.getEnemy(player.getX(), player.getY()).takeDmg(player.attack())) + " damage done!");
+				txtAreaEvents.setText("Enemy attacks!");
+				txtAreaEvents.setText(Integer.toString(player.takeDmg(level.getEnemy(player.getX(), player.getY()).attack())) + " damage done!");
 				attack();
 				break;
 			default:
@@ -125,7 +128,7 @@ public class MainController {
 	@FXML
 	public void goEast(){txtAreaEvents.setText("Went East!");}
 
-
+	// 
 
 	// Method for placing text into room description
 }
