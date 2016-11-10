@@ -9,13 +9,19 @@ public class PandorasBox {
 	private Enemy e3= new Enemy("Kree Warrior",100,10,0,0,0);
 	private Enemy e4= new Enemy("Skeleton Warrior",100,10,0,0,0);
 	private Enemy e5= new Enemy("Living Armor",100,10,0,0,0);
+	private Enemy e5= new Enemy("Living Shadow",100,10,0,0,0);
+	private Enemy e5= new Enemy("Goblin",100,10,0,0,0);
+	private Enemy e5= new Enemy("Assasin",100,10,0,0,0);
 
 	private Item i1= new Item("Excalibur", 16, Item.types.Weapon);
 	private Item i2= new Item("Iron Sword",8, Item.types.Weapon);
 	private Item i3= new Item("War Hammer",12, Item.types.Weapon);
 	private Item i4= new Item("Cutlass", 9, Item.types.Weapon);
+	private Item i4= new Item("Club", 10, Item.types.Weapon);
+	private Item i4= new Item("Spell Tome", 14, Item.types.Weapon);
 	private Item i5= new Item("Bandage",20, Item.types.Meds);
 	private Item i6= new Item("Healing Potion",100, Item.types.Meds);
+	private Item i6= new Item("Soothing Stone",50, Item.types.Meds);
 
 	public ArrayList<Item> getItems(){
 		ArrayList<Item>i=new ArrayList<Item>();
