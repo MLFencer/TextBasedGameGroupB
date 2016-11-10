@@ -22,7 +22,7 @@ public class Item
 		return value;
 	}
 
-	public void setHealth(double health) {
+	public void setValue(double health) {
 		this.value = health;
 	}
 
