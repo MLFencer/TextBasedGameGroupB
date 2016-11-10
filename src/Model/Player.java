@@ -54,4 +54,13 @@ public class Player extends Entity
 		this.inventory.add(i);
 	}
 
+	public void death()
+	{
+		this.x = 0;
+		this.y = 0;
+		setHp(100);
+		inventory.clear();
+		
+	
+	}
 }
