@@ -26,7 +26,7 @@ public class MainController
 	public String gameStatus;
 
 	public void initialize(){
-		txtAreaEvents.setText("Welcome to Concept Killer!\nPlease Enter Commands in the TextField to Play.");
+		txtAreaEvents.appendText("Welcome to Concept Killer!\nPlease Enter Commands in the TextField to Play.");
 		//gameStatus="starting";
 		gameStatus="main";
 		level.generateMap();
@@ -142,6 +142,15 @@ public void attack(){
 			System.out.println(player.getHp());
 			if(level.getEnemy(player.getX(), player.getY()).getHp() == 0)
 				txtAreaEvents.appendText("The enemy died!\n");
+			if(player.getHp() == 0)
+			{	
+				lblStatus.setText("YOU DIED!");
+				player.death();
+				level = null;
+				level = new Level();
+				level.generateMap();
+				txtAreaEvents.setText("Welcome to Concept Killer!\nPlease Enter Commands in the TextField to Play.");
+			}	
 		}
 		else
 			lblStatus.setText("Nothing to fight!");
@@ -176,8 +185,9 @@ public void goNorth()
 		player.setY(player.getY()-1);
 		txtAreaRoom.setText(level.getRoom(player.getX(), player.getY()));
 		txtActionLog.appendText("North\n");
+		lblStatus.setText("");
 	} else{
-		txtAreaEvents.setText("Can't Move North!");
+		lblStatus.setText("Can't Move North!");
 	}
 }
 
@@ -188,8 +198,9 @@ public void goSouth()
 		player.setY(player.getY()+1);
 		txtAreaRoom.setText(level.getRoom(player.getX(), player.getY()));
 		txtActionLog.appendText("South\n");
+		lblStatus.setText("");
 	}else{
-		txtAreaEvents.setText("Can't Move South!");
+		lblStatus.setText("Can't Move South!");
 	}
 }
 
@@ -200,8 +211,9 @@ public void goWest()
 		player.setX(player.getX()-1);
 		txtAreaRoom.setText(level.getRoom(player.getX(), player.getY()));
 		txtActionLog.appendText("West\n");
+		lblStatus.setText("");
 	}else{
-		txtAreaEvents.setText("Can't Move West!");
+		lblStatus.setText("Can't Move West!");
 	}
 }
 
@@ -212,8 +224,9 @@ public void goEast()
 		player.setX(player.getX()+1);
 		txtAreaRoom.setText(level.getRoom(player.getX(), player.getY()));
 		txtActionLog.appendText("East\n");
+		lblStatus.setText("");
 	}else{
-		txtAreaEvents.setText("Can't Move East!");
+		lblStatus.setText("Can't Move East!");
 	}
 }
 
