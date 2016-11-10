@@ -90,7 +90,8 @@ public class Entity
 	public int takeDmg(int dmg)
 	{
 		hp -= dmg;
-		
+		if(hp <= 0)
+			hp = 0;
 		System.out.println(dmg + " damage done");
 		return dmg;
 		
