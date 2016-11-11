@@ -77,8 +77,8 @@ public class MainController
 	public void mainRunner(){
 		String command = txtPlayerActions.getText();
 		if(command.contains("use ")){
-			System.out.println(command.charAt(4));
-			useItem(command.charAt(4));
+			System.out.println(command.substring(4));
+			useItem(Integer.parseInt(command.substring(4)));
 			command="use";
 		}
 		if(!gameStatus.equals("fighting")){
@@ -115,7 +115,7 @@ public class MainController
 					lblStatus.setText("Can't Collect Loot Till Enemy is Dead");
 				}
 				break;
-			/*case "inventory":
+				/*case "inventory":
 				@SuppressWarnings("unchecked")
 				ArrayList<Item> i = player.getInventory();
 				String s=" ";
@@ -202,6 +202,11 @@ public class MainController
 					player.setLevel(0);
 					barUpdates();
 					txtAreaRoom.setText(level.getRoom(player.getX(), player.getY()));
+					PandorasBox pan1 = new PandorasBox();
+					player.setActiveWeapon(pan1.fist);
+					Item h=pan1.i7;
+					player.addItem(h);
+					txtAreaInventory.setText(player.InventoryListString());
 					txtAreaInventory.setText(player.InventoryListString());
 					txtAreaEvents.setText("Game Restarted\nWelcome to Concept Killer!\nPlease Enter Commands in the TextField to Play.");
 				}
@@ -356,36 +361,43 @@ public class MainController
 	}
 
 	public void useItem(int number){
-		number=number-49;
 		System.out.println(number);
-		Item item = player.getInventoryItem(number);
-		if(item.getType()==Item.types.Weapon){
-			player.setActiveWeapon(item);
-			if(gameStatus=="fighting"){
-				txtAreaEvents.appendText("Equipped "+item.getName()+" as Main Weapon");
-			}else{
-				txtAreaEvents.setText("Equipped "+item.getName()+" as Main Weapon");
-			}
-		} else if (item.getType()==Item.types.Meds){
-			int healthLost = 100-player.getHp();
-			if (healthLost-item.getValue()>=0){
-				player.setHp(player.getHp()+(int)item.getValue());
+		number=number-1;
+		System.out.println("Inv "+player.getInventory().size());
+		if(number<player.getInventory().size()){
+			System.out.println(number);
+			Item item = player.getInventoryItem(number);
+			if(item.getType()==Item.types.Weapon){
+				player.setActiveWeapon(item);
 				if(gameStatus=="fighting"){
-					txtAreaEvents.appendText("Healed "+item.getValue()+" Health Points. Health is now "+player.getHp()+"\n");
+					txtAreaEvents.appendText("Equipped "+item.getName()+" as Main Weapon");
 				}else{
-					txtAreaEvents.setText("Healed "+item.getValue()+" Health Points. Health is now "+player.getHp()+"\n");
+					txtAreaEvents.setText("Equipped "+item.getName()+" as Main Weapon");
 				}
-			}else{
-				if(gameStatus=="fighting"){
-					txtAreaEvents.appendText("Healed "+ (100-player.getHp()) +" Health Points. Your Health is now 100\n");
+			} else if (item.getType()==Item.types.Meds){
+				int healthLost = 100-player.getHp();
+				if (healthLost-item.getValue()>=0){
+					player.setHp(player.getHp()+(int)item.getValue());
+					if(gameStatus=="fighting"){
+						txtAreaEvents.appendText("Healed "+item.getValue()+" Health Points. Health is now "+player.getHp()+"\n");
+					}else{
+						txtAreaEvents.setText("Healed "+item.getValue()+" Health Points. Health is now "+player.getHp()+"\n");
+					}
 				}else{
-					txtAreaEvents.setText("Healed "+ (100-player.getHp()) +" Health Points. Your Health is now 100\n");
+					if(gameStatus=="fighting"){
+						txtAreaEvents.appendText("Healed "+ (100-player.getHp()) +" Health Points. Your Health is now 100\n");
+					}else{
+						txtAreaEvents.setText("Healed "+ (100-player.getHp()) +" Health Points. Your Health is now 100\n");
+					}
+					player.setHp(100);
 				}
-				player.setHp(100);
+				barUpdates();
+				player.removeInventoryItem(number);
+				txtAreaInventory.setText(player.InventoryListString());
 			}
-			barUpdates();
-			player.removeInventoryItem(number);
-			txtAreaInventory.setText(player.InventoryListString());
+		}else{
+			txtAreaEvents.setText("You don't have that many items!");
+			//lblStatus.setText(gameStatus);
 		}
 	}
 }
