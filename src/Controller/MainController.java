@@ -193,6 +193,17 @@ public class MainController
 				System.out.println(level.getEnemy(player.getX(), player.getY()).getHp());
 				txtAreaEvents.appendText(level.getEnemy(player.getX(), player.getY()).getName()+" did "+Integer.toString(player.takeDmg(level.getEnemy(player.getX(), player.getY()).attack())) + " damage to you!\n");
 				System.out.println(player.getHp());
+				player.getActiveWeapon().setUses(player.getActiveWeapon().getUses()-1);
+				if(player.getActiveWeapon().getUses() == 0)
+				{
+					player.getActiveWeapon().setValue(0);
+					lblStatus.setText("Your weapon broke!");					
+					player.removeInventoryItem(player.getInventory().indexOf(player.getActiveWeapon()));
+					txtAreaInventory.setText(player.InventoryListString());
+					PandorasBox pan = new PandorasBox();
+					player.setActiveWeapon(pan.fist);
+					
+				}
 				barUpdates();
 				if(level.getEnemy(player.getX(), player.getY()).getHp() == 0){
 					txtAreaEvents.appendText("The enemy died!\n");
@@ -413,7 +424,7 @@ public class MainController
 				txtAreaInventory.setText(player.InventoryListString());
 			}
 		}else{
-			txtAreaEvents.setText("You don't have that many items!");
+			txtAreaEvents.setText("You don't have that many items!\n");
 			//lblStatus.setText(gameStatus);
 		}
 	}
