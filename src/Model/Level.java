@@ -26,8 +26,8 @@ public class Level {
 					ArrayList t =(ArrayList)rooms.get(i);
 					t.add(j,r);
 				}else{
-				Item it =p.getItems().get(rand.nextInt(6));
-				Enemy e = p.getEnemies().get(rand.nextInt(5));
+				Item it =p.getItems().get(rand.nextInt(p.getItems().size()));
+				Enemy e = p.getEnemies().get(rand.nextInt(p.getEnemies().size()));
 				Room r = new Room(it,e);
 				ArrayList t =(ArrayList)rooms.get(i);
 				t.add(j,r);
@@ -82,8 +82,9 @@ public class Level {
 		return SIZE;
 	}
 
+	@SuppressWarnings("unchecked")
 	public void setEnemy(int x, int y, Enemy e){
-		ArrayList t = (ArrayList)rooms.get(x);
+		ArrayList<Room> t = (ArrayList<Room>)rooms.get(x);
 		Room r = (Room)t.get(y);
 		r.setEnemy(e);
 	}

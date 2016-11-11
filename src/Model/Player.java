@@ -6,7 +6,6 @@ public class Player extends Entity
 
 	private int x, y;
 	private Item activeWeapon;
-	@SuppressWarnings("rawtypes")
 	private ArrayList<Item> inventory = new ArrayList<Item>();
 
 	public Player(String nameIn, int hpIn, int dmgIn, int strIn, int dexIn, int conIn, double xpIn, int levelIn, int xIn, int yIn)
@@ -71,13 +70,12 @@ public class Player extends Entity
 		return inventory;
 	}
 
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void setInventory(ArrayList inventory)
 	{
 		this.inventory = inventory;
 	}
 
-	@SuppressWarnings("unchecked")
 	public void addItem(Item i){
 		this.inventory.add(i);
 	}
