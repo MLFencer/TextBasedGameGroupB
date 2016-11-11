@@ -22,7 +22,7 @@ public class MainController
 
 	private int lastX,lastY,enemyMaxHealth;
 
-	private Player player = new Player("name", 100, 5, 8, 8, 8, 0, 1, 0, 0);
+	private Player player = new Player("name", 100, 5, 10, 10, 10, 0, 1, 0, 0);
 	Level level = new Level();
 	public String gameStatus;
 
@@ -189,10 +189,22 @@ public class MainController
 			if(level.getEnemy(player.getX(), player.getY()).getHp() != 0)
 			{
 				txtActionLog.appendText("Hit Enemy\n");;
-				txtAreaEvents.appendText("You did "+Integer.toString(level.getEnemy(player.getX(), player.getY()).takeDmg(player.attack()+(int)player.getActiveWeapon().getValue())) + " damage to enemy!\n");
-				System.out.println(level.getEnemy(player.getX(), player.getY()).getHp());
-				txtAreaEvents.appendText(level.getEnemy(player.getX(), player.getY()).getName()+" did "+Integer.toString(player.takeDmg(level.getEnemy(player.getX(), player.getY()).attack())) + " damage to you!\n");
-				System.out.println(player.getHp());
+			
+				switch(player.getActiveWeapon().getWeaponType())
+				{
+					case Heavy:
+						txtAreaEvents.appendText("You did "+Integer.toString(level.getEnemy(player.getX(), player.getY()).takeDmg(player.attack(player.calculateModifier(player.getStr()))+(int)player.getActiveWeapon().getValue())) + " damage to enemy!\n");
+						System.out.println(level.getEnemy(player.getX(), player.getY()).getHp());
+						txtAreaEvents.appendText(level.getEnemy(player.getX(), player.getY()).getName()+" did "+Integer.toString(player.takeDmg(level.getEnemy(player.getX(), player.getY()).attack(0))) + " damage to you!\n");
+						break;
+					case Light:
+						txtAreaEvents.appendText("You did "+Integer.toString(level.getEnemy(player.getX(), player.getY()).takeDmg(player.attack(player.calculateModifier(player.getDex()))+(int)player.getActiveWeapon().getValue())) + " damage to enemy!\n");
+						System.out.println(player.getHp());
+						txtAreaEvents.appendText(level.getEnemy(player.getX(), player.getY()).getName()+" did "+Integer.toString(player.takeDmg(level.getEnemy(player.getX(), player.getY()).attack(0))) + " damage to you!\n");
+						break;
+					case Null:
+						break;						
+				}
 				player.getActiveWeapon().setUses(player.getActiveWeapon().getUses()-1);
 				if(player.getActiveWeapon().getUses() == 0)
 				{
