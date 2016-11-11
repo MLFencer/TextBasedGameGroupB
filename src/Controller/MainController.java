@@ -11,7 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-
+//import java.util.Scanner;
 public class MainController
 {
 	@FXML private Button btnNorth, btnSouth, btnEast, btnWest, btnAction;
@@ -22,7 +22,7 @@ public class MainController
 
 	private int lastX,lastY,enemyMaxHealth;
 
-	private Player player = new Player("name", 100, 5, 0, 0, 0, 0, 1, 0, 0);
+	private Player player = new Player("name", 100, 5, 8, 8, 8, 0, 1, 0, 0);
 	Level level = new Level();
 	public String gameStatus;
 
@@ -30,7 +30,7 @@ public class MainController
 		txtPlayerActions.requestFocus();
 		txtAreaEvents.appendText("Welcome to Concept Killer!\nPlease Enter Commands in the TextField to Play.");
 		//gameStatus="starting";
-		gameStatus="main";
+		gameStatus="main";		
 		level.generateMap();
 		showHelp();
 		barUpdates();
@@ -40,19 +40,38 @@ public class MainController
 		player.addItem(h);
 		txtAreaInventory.setText(player.InventoryListString());
 		txtAreaRoom.setText(level.getRoom(player.getX(), player.getY()));
+
 	}
 	public void menuSwitch(){
 		String command = txtPlayerActions.getText();
 		switch (command){
 		case "1":
 		case "play":
-			level.generateMap(); // need to make sure there are no enemies in starting room
+			level.generateMap();
 			gameStatus="main";
 			mainRunner();
 			break;
 		}
 	}
 
+/*
+	@SuppressWarnings("resource")
+	public void characterCreation()
+	{
+		txtAreaEvents.setText("Create your character.\n");
+		txtAreaEvents.appendText("Enter your character name.\n");
+		txtAreaEvents.appendText("Now assign points to your attributes\n");
+		txtAreaEvents.appendText("The attributes are strength, dexterity, and constitution\n");
+		txtAreaEvents.appendText("Strength decides heavy weapon damage\n");
+		txtAreaEvents.appendText("Dexterity decides light weapon damage\n");
+		txtAreaEvents.appendText("Constitution decides health points\n");
+		txtAreaEvents.appendText("Current Attributes\n");
+		txtAreaEvents.appendText("Strength: " + player.getStr() + "\n");
+		txtAreaEvents.appendText("Dexterity: " + player.getDex()+ "\n");
+		txtAreaEvents.appendText("Constitution: " + player.getCon()+ "\n");
+		txtAreaEvents.appendText("You have " + player.getPoints() + " points to spend\n");
+	}
+*/	
 	// Method for assigning cardinality buttons to input into txtPlayerActions.
 	@FXML
 	public void onPlayerAction(ActionEvent event)
@@ -103,14 +122,14 @@ public class MainController
 				txtAreaRoom.setText(level.getRoom(player.getX(), player.getY()));
 				txtActionLog.appendText("Went Back\n");
 				barUpdates();
-				break;
+				break;	
 			case "grab":
 				if(level.getEnemy(player.getX(), player.getY())==null){
 					Item item=level.removeItem(player.getX(), player.getY());
 					player.addItem(item);
 					txtAreaRoom.setText(level.getRoom(player.getX(), player.getY()));
 					txtAreaInventory.setText(player.InventoryListString());
-					txtActionLog.appendText("Grabbed "+player.getInventoryItem(player.getInventory().size()-1).getName()+"\n");
+					txtActionLog.appendText("Grabbed "+player.getInventoryItem(player.getInventory().size()-1).getName()+"\n");		
 				}else{
 					lblStatus.setText("Can't Collect Loot Till Enemy is Dead");
 				}
@@ -169,11 +188,9 @@ public class MainController
 		case "attack":
 			if(level.getEnemy(player.getX(), player.getY()).getHp() != 0)
 			{
-				txtActionLog.appendText("Hit Enemy\n");
-				//txtAreaEvents.appendText("You attack!\n");
+				txtActionLog.appendText("Hit Enemy\n");;
 				txtAreaEvents.appendText("You did "+Integer.toString(level.getEnemy(player.getX(), player.getY()).takeDmg(player.attack()+(int)player.getActiveWeapon().getValue())) + " damage to enemy!\n");
 				System.out.println(level.getEnemy(player.getX(), player.getY()).getHp());
-				//txtAreaEvents.appendText("Enemy attacks!\n");
 				txtAreaEvents.appendText(level.getEnemy(player.getX(), player.getY()).getName()+" did "+Integer.toString(player.takeDmg(level.getEnemy(player.getX(), player.getY()).attack())) + " damage to you!\n");
 				System.out.println(player.getHp());
 				barUpdates();
