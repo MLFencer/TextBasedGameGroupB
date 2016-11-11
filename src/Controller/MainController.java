@@ -1,7 +1,5 @@
 package Controller;
 
-import java.util.ArrayList;
-
 import Model.Item;
 import Model.Level;
 import Model.PandorasBox;
@@ -22,7 +20,7 @@ public class MainController
 	@FXML private ProgressBar healthBar, xpBar, hpEnemy;
 	@FXML private Label lblStatus;
 
-	private int lastX,lastY;
+	private int lastX,lastY,enemyMaxHealth;
 
 	private Player player = new Player("name", 100, 5, 0, 0, 0, 0, 1, 0, 0);
 	Level level = new Level();
@@ -38,6 +36,9 @@ public class MainController
 		barUpdates();
 		PandorasBox pan = new PandorasBox();
 		player.setActiveWeapon(pan.fist);
+		Item h=pan.i7;
+		player.addItem(h);
+		txtAreaInventory.setText(player.InventoryListString());
 		txtAreaRoom.setText(level.getRoom(player.getX(), player.getY()));
 	}
 	public void menuSwitch(){
@@ -248,6 +249,7 @@ public class MainController
 				lastY=player.getY();
 				player.setY(player.getY()-1);
 				txtAreaRoom.setText(level.getRoom(player.getX(), player.getY()));
+				enemyMaxHealth=level.getEnemy(player.getX(), player.getY()).getHp();
 				txtActionLog.appendText("North\n");
 				lblStatus.setText("");
 				barUpdates();
@@ -268,6 +270,7 @@ public class MainController
 				lastY=player.getY();
 				player.setY(player.getY()+1);
 				txtAreaRoom.setText(level.getRoom(player.getX(), player.getY()));
+				enemyMaxHealth=level.getEnemy(player.getX(), player.getY()).getHp();
 				txtActionLog.appendText("South\n");
 				lblStatus.setText("");
 				barUpdates();
@@ -289,6 +292,7 @@ public class MainController
 				lastY=player.getY();
 				player.setX(player.getX()-1);
 				txtAreaRoom.setText(level.getRoom(player.getX(), player.getY()));
+				enemyMaxHealth=level.getEnemy(player.getX(), player.getY()).getHp();
 				txtActionLog.appendText("West\n");
 				lblStatus.setText("");
 				barUpdates();
@@ -310,6 +314,7 @@ public class MainController
 				lastY=player.getY();
 				player.setX(player.getX()+1);
 				txtAreaRoom.setText(level.getRoom(player.getX(), player.getY()));
+				enemyMaxHealth=level.getEnemy(player.getX(), player.getY()).getHp();
 				txtActionLog.appendText("East\n");
 				lblStatus.setText("");
 				barUpdates();
@@ -339,7 +344,7 @@ public class MainController
 		double currentPlayerHealth = (double)player.getHp()/100;
 		double currentEnemyHealth;
 		try{
-			currentEnemyHealth = (double)level.getEnemy(player.getX(), player.getY()).getHp() / 100;
+			currentEnemyHealth = (double)level.getEnemy(player.getX(), player.getY()).getHp() / enemyMaxHealth;
 		} catch(Exception e){
 			currentEnemyHealth=0;
 		}
@@ -366,15 +371,15 @@ public class MainController
 			if (healthLost-item.getValue()>=0){
 				player.setHp(player.getHp()+(int)item.getValue());
 				if(gameStatus=="fighting"){
-					txtAreaEvents.appendText("Healed "+item.getValue()+" Health Points. Health is now "+player.getHp());
+					txtAreaEvents.appendText("Healed "+item.getValue()+" Health Points. Health is now "+player.getHp()+"\n");
 				}else{
-					txtAreaEvents.setText("Healed "+item.getValue()+" Health Points. Health is now "+player.getHp());
+					txtAreaEvents.setText("Healed "+item.getValue()+" Health Points. Health is now "+player.getHp()+"\n");
 				}
 			}else{
 				if(gameStatus=="fighting"){
-					txtAreaEvents.appendText("Healed "+ (100-player.getHp()) +" Health Points. Your Health is now 100");
+					txtAreaEvents.appendText("Healed "+ (100-player.getHp()) +" Health Points. Your Health is now 100\n");
 				}else{
-					txtAreaEvents.setText("Healed "+ (100-player.getHp()) +" Health Points. Your Health is now 100");
+					txtAreaEvents.setText("Healed "+ (100-player.getHp()) +" Health Points. Your Health is now 100\n");
 				}
 				player.setHp(100);
 			}
