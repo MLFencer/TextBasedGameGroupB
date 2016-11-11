@@ -19,11 +19,19 @@ public class Level {
 		for(int i=0;i<SIZE;i++){
 			for (int j=0; j<SIZE; j++){
 				PandorasBox p=new PandorasBox();
+				if(i==0&&j==0){
+					Item it =p.getItems().get(1);
+					Enemy e =null;
+					Room r = new Room(it,e);
+					ArrayList t =(ArrayList)rooms.get(i);
+					t.add(j,r);
+				}else{
 				Item it =p.getItems().get(rand.nextInt(6));
 				Enemy e = p.getEnemies().get(rand.nextInt(5));
 				Room r = new Room(it,e);
 				ArrayList t =(ArrayList)rooms.get(i);
 				t.add(j,r);
+				}
 			}
 		}
 	}
@@ -72,6 +80,12 @@ public class Level {
 
 	public int getSize(){
 		return SIZE;
+	}
+
+	public void setEnemy(int x, int y, Enemy e){
+		ArrayList t = (ArrayList)rooms.get(x);
+		Room r = (Room)t.get(y);
+		r.setEnemy(e);
 	}
 
 

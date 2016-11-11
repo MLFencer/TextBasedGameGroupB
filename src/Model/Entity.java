@@ -1,9 +1,9 @@
 package Model;
 import java.util.Random;
 
-public class Entity 
+public class Entity
 {
-	
+
 	private int dmg;
 	private int hp;
 	private int str;
@@ -14,12 +14,12 @@ public class Entity
 	private double currentLvl = 100/1.5;
 	private final double MULTIPLIER = 1.5;
 	private double nextLvl = currentLvl * MULTIPLIER;
-	
+
 	public double getNextLevel()
 	{
 		return nextLvl;
 	}
-	
+
 	public double getXp() {
 		return xp;
 	}
@@ -37,7 +37,7 @@ public class Entity
 	}
 
 	private String name;
-	
+
 	public Entity(String nameIn, int hpIn, int dmgIn, int strIn, int dexIn, int conIn, double xpIn, int levelIn)
 	{
 		this.name = nameIn;
@@ -49,61 +49,61 @@ public class Entity
 		this.xp = xpIn;
 		this.level = levelIn;
 	}
-	
-	public int getDmg() 
+
+	public int getDmg()
 	{
 		return dmg;
 	}
-	public void setDmg(int dmg) 
+	public void setDmg(int dmg)
 	{
 		this.dmg = dmg;
 	}
-	public int getHp() 
+	public int getHp()
 	{
 		return hp;
 	}
-	public void setHp(int hp) 
+	public void setHp(int hp)
 	{
 		this.hp = hp;
 	}
-	public String getName() 
+	public String getName()
 	{
 		return name;
 	}
-	public void setName(String name) 
+	public void setName(String name)
 	{
 		this.name = name;
 	}
-	public int getStr() 
+	public int getStr()
 	{
 		return str;
 	}
-	public void setStr(int str) 
+	public void setStr(int str)
 	{
 		this.str = str;
 	}
-	public int getDex() 
+	public int getDex()
 	{
 		return dex;
 	}
-	public void setDex(int dex) 
+	public void setDex(int dex)
 	{
 		this.dex = dex;
 	}
-	public int getCon() 
+	public int getCon()
 	{
 		return con;
 	}
-	public void setCon(int con) 
+	public void setCon(int con)
 	{
 		this.con = con;
 	}
 
 	public int attack()
-	{		
-		Random rollToHit = new Random();	
+	{
+		Random rollToHit = new Random();
 		int hitChance = rollToHit.nextInt(20)+1;
-		
+
 		if(hitChance == 20){
 			return dmg*2;
 			// crit
@@ -113,9 +113,9 @@ public class Entity
 			// miss
 		}
 		else
-			return dmg;		
+			return dmg;
 	}
-	
+
 	public int takeDmg(int dmg)
 	{
 		hp -= dmg;
@@ -123,28 +123,28 @@ public class Entity
 			hp = 0;
 		return dmg;
 	}
-	
+
 	public String gainXp(double xpDrop)
-	{		
-		String gainedXp = xpDrop + " gained";
-		
-		setXp(xp + xpDrop);
-				
-			
+	{
+		String gainedXp = (int)xpDrop + " gained";
+
+		setXp(xp + (int)xpDrop);
+
+
 		if (xp >= nextLvl)
 		{
 			levelUp();
 			currentLvl = nextLvl;
-		}	
+		}
 		return gainedXp;
-	}	
-	
+	}
+
 	public String levelUp()
 	{
 		String levelUp = "Level up!";
 		setLevel(level + 1);
-		
+
 		return levelUp;
 	}
-	
+
 }
