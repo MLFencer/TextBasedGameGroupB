@@ -114,7 +114,7 @@ public class MainController
 					lblStatus.setText("Can't Collect Loot Till Enemy is Dead");
 				}
 				break;
-			case "inventory":
+			/*case "inventory":
 				@SuppressWarnings("unchecked")
 				ArrayList<Item> i = player.getInventory();
 				String s=" ";
@@ -122,7 +122,7 @@ public class MainController
 					s+=(x.getName()+", ");
 				}
 				txtAreaEvents.setText(s);
-				break;
+				break;*/
 			case "attack":
 				try{
 					if(level.getEnemy(player.getX(), player.getY()).getHp() == 0){
@@ -325,7 +325,7 @@ public class MainController
 	public void showHelp(){
 		String value = "";
 		if (gameStatus == "main"){
-			value = "Aviable Actions: \n north \n south \n east \n west \n grab \n inventory \n attack\n use \'#\'\nback";
+			value = "Aviable Actions: \n north \n south \n east \n west \n grab \n attack\n use \'#\'\nback";
 		}
 		else if(gameStatus == "fighting"){
 			value = "Aviable Actions: \n attack \n run\n use \'#\'";
