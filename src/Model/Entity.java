@@ -25,13 +25,13 @@ public class Entity
 		this.level = levelIn;
 	}
 
-	public int attack()
+	public int attack(int modifier)
 	{
 		Random rollToHit = new Random();
 		int hitChance = rollToHit.nextInt(20)+1;
 
 		if(hitChance == 20){
-			return dmg*2;
+			return (dmg + modifier)*2;
 			// crit
 		}
 		if(hitChance == 1){
@@ -39,7 +39,7 @@ public class Entity
 			// miss
 		}
 		else
-			return dmg;
+			return (dmg + modifier);
 	}
 
 	public int takeDmg(int dmg)
