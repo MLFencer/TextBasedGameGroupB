@@ -208,7 +208,6 @@ public class MainController
 				player.getActiveWeapon().setUses(player.getActiveWeapon().getUses()-1);
 				if(player.getActiveWeapon().getUses() == 0)
 				{
-					player.getActiveWeapon().setValue(0);
 					lblStatus.setText("Your weapon broke!");					
 					player.removeInventoryItem(player.getInventory().indexOf(player.getActiveWeapon()));
 					txtAreaInventory.setText(player.InventoryListString());
