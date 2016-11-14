@@ -56,7 +56,7 @@ public class Player extends Entity
 	
 	public String gainXp(double xpDrop)
 	{
-		String gainedXp = (int)xpDrop + " gained";
+		String gainedXp = (int)xpDrop + "xp gained";
 
 		setXp(getXp() + (int)xpDrop);
 
