@@ -277,9 +277,31 @@ public class MainController
 				lblStatus.setText("Nothing to fight!");
 			break;
 		case "block":
-			txtAreaEvents.setText("Blocked!");
+			timer.cancel();
+			combatTimer(5);
+			int counterAttackB = 0;
+			counterAttackB = player.block(level.getEnemy(player.getX(), player.getY()));
+			txtAreaEvents.appendText("Blocked!\n");
+			if(counterAttackB != 0)
+			{
+				txtAreaEvents.appendText("Counter Attack! " + "You did " + counterAttackB + " damage!\n");
+				barUpdates();
+			}
 			txtActionLog.appendText("Blocked Enemy\n");
 			break;
+		case "dodge":
+			timer.cancel();
+			combatTimer(5);
+			int counterAttackD = 0;
+			counterAttackD = player.dodge(level.getEnemy(player.getX(), player.getY()));
+			txtAreaEvents.appendText("Dodged!\n");
+			if(counterAttackD != 0)
+			{
+				txtAreaEvents.appendText("Counter Attack! " + "You did " + counterAttackD + " damage!\n");
+				barUpdates();
+			}
+			txtActionLog.appendText("Dodged Enemy\n");
+			break;	
 		case "run":
 			gameStatus = "main";
 			showHelp();

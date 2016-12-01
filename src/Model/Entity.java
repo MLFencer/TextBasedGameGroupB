@@ -49,6 +49,7 @@ public class Entity
 			hp = 0;
 		return dmg;
 	}
+
 	
 	public int getDmg()
 	{

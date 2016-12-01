@@ -1,5 +1,6 @@
 package Model;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Player extends Entity
 {
@@ -23,6 +24,28 @@ public class Player extends Entity
 	public void updateStats()
 	{
 		
+	}
+	public int block(Enemy enemy)
+	{
+		Random rollToBlock = new Random();
+		int blockChance = rollToBlock.nextInt(20) + (1 + getCon());
+		if(blockChance >= 25)
+		{
+			return enemy.takeDmg((int)(getActiveWeapon().getValue() + getDmg()));			
+		}
+		else
+			return 0;
+	}
+	public int dodge(Enemy enemy)
+	{
+		Random rollToDodge = new Random();
+		int dodgeChance = rollToDodge.nextInt(20) + (1 + getDex());
+		if(dodgeChance >= 25)
+		{
+			return enemy.takeDmg((int)(getActiveWeapon().getValue() + getDmg()));			
+		}
+		else
+			return 0;
 	}
 	public int calculateModifier(int attribute)
 	{

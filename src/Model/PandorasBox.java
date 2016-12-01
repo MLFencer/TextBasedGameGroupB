@@ -17,7 +17,7 @@ public class PandorasBox {
 	
 
 	private Item i1= new Item("Excalibur", 30, Item.types.Weapon, Item.weaponTypes.Light, 10);
-	private Item i2= new Item("Iron Sword",10, Item.types.Weapon, Item.weaponTypes.Light, 1);
+	private Item i2= new Item("Iron Sword",10, Item.types.Weapon, Item.weaponTypes.Light, 30);
 	private Item i3= new Item("War Hammer",20, Item.types.Weapon, Item.weaponTypes.Heavy, 20);
 	private Item i4= new Item("Cutlass", 15, Item.types.Weapon, Item.weaponTypes.Light, 25);
 	private Item i5= new Item("Bandage",20, Item.types.Meds, Item.weaponTypes.Null, 0);
