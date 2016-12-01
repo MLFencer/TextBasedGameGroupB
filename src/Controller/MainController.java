@@ -1,5 +1,6 @@
 package Controller;
 
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.lang.*;
@@ -35,6 +36,8 @@ public class MainController
 	public static Level level = new Level();
 	public static String gameStatus;
 	Timer timer;
+	int aType;
+	Random attackType = new Random();
 
 	public void initialize(){
 		txtPlayerActions.requestFocus();
@@ -205,29 +208,45 @@ public class MainController
 		}
 		txtPlayerActions.setText("");
 		switch(command){
-		case "attack": 
+		case "attack": 			
+
 			timer.cancel();
 			combatTimer(5); 
+
 			if(level.getEnemy(player.getX(), player.getY()).getHp() != 0)
 			{
 				txtActionLog.appendText("Hit Enemy\n");
-			
+				
 				switch(player.getActiveWeapon().getWeaponType())
 				{
+					
 					case Heavy:
 						txtAreaEvents.appendText("You did "+Integer.toString(level.getEnemy(player.getX(), player.getY()).takeDmg(player.attack(player.calculateModifier(player.getStr()))+(int)player.getActiveWeapon().getValue())) + " damage to enemy!\n");
 						System.out.println(level.getEnemy(player.getX(), player.getY()).getHp());
-						txtAreaEvents.appendText(level.getEnemy(player.getX(), player.getY()).getName()+" did "+Integer.toString(player.takeDmg(level.getEnemy(player.getX(), player.getY()).attack(0))) + " damage to you!\n");
+						txtAreaEvents.appendText(level.getEnemy(player.getX(), player.getY()).getName()+" did "+Integer.toString(player.takeDmg(level.getEnemy(player.getX(), player.getY()).attack(0))) + " damage to you!\n");					
+						aType =  attackType.nextInt(2);
 						break;
 					case Light:
 						txtAreaEvents.appendText("You did "+Integer.toString(level.getEnemy(player.getX(), player.getY()).takeDmg(player.attack(player.calculateModifier(player.getDex()))+(int)player.getActiveWeapon().getValue())) + " damage to enemy!\n");
 						System.out.println(player.getHp());
 						txtAreaEvents.appendText(level.getEnemy(player.getX(), player.getY()).getName()+" did "+Integer.toString(player.takeDmg(level.getEnemy(player.getX(), player.getY()).attack(0))) + " damage to you!\n");
+						aType =  attackType.nextInt(2);
 						break;
 					case Null:
 						break;						
 				}
 				player.getActiveWeapon().setUses(player.getActiveWeapon().getUses()-1);
+				
+
+				if(aType == 0)
+				{
+					lblStatus.setText("The enemy will use a light attack!");
+				}
+				if(aType == 1)
+				{
+					lblStatus.setText("The enemy will use a heavy attack!");
+				}
+				
 				if(player.getActiveWeapon().getUses() == 0)
 				{
 					lblStatus.setText("Your weapon broke!");					
@@ -241,6 +260,7 @@ public class MainController
 				if(level.getEnemy(player.getX(), player.getY()).getHp() == 0){
 					timer.cancel();
 					txtAreaEvents.appendText("The enemy died!\n");
+					lblStatus.setText("");
 					txtAreaEvents.appendText(player.gainXp(level.getEnemy(player.getX(), player.getY()).getXp()));
 					gameStatus="main";
 					level.setEnemy(player.getX(), player.getY(), null);
@@ -279,29 +299,55 @@ public class MainController
 		case "block":
 			timer.cancel();
 			combatTimer(5);
-			int counterAttackB = 0;
-			counterAttackB = player.block(level.getEnemy(player.getX(), player.getY()));
-			txtAreaEvents.appendText("Blocked!\n");
-			if(counterAttackB != 0)
+			if(aType == 1)
 			{
-				txtAreaEvents.appendText("Counter Attack! " + "You did " + counterAttackB + " damage!\n");
-				barUpdates();
+				lblStatus.setText("Heavy attacks can't be blocked!\n");
+				break;
+			}	
+			else if(aType == 0)
+			{
+				int counterAttackB = 0;
+				counterAttackB = player.block(level.getEnemy(player.getX(), player.getY()));
+				txtAreaEvents.appendText("Blocked!\n");
+				if(counterAttackB > 0)
+				{
+					txtAreaEvents.appendText("Counter Attack! You did " + counterAttackB + " damage!\n");
+					barUpdates();
+				}
+				else if(counterAttackB == 0)
+				{
+					txtAreaEvents.appendText("Failed to block! You take " + player.takeDmg(level.getEnemy(player.getX(), player.getY()).attack(0)) + " damage!\n");
+					barUpdates();
+				}
+				txtActionLog.appendText("Attempted to block Enemy\n");
+				break;
 			}
-			txtActionLog.appendText("Blocked Enemy\n");
-			break;
 		case "dodge":
 			timer.cancel();
 			combatTimer(5);
-			int counterAttackD = 0;
-			counterAttackD = player.dodge(level.getEnemy(player.getX(), player.getY()));
-			txtAreaEvents.appendText("Dodged!\n");
-			if(counterAttackD != 0)
+			if(aType == 0)
 			{
-				txtAreaEvents.appendText("Counter Attack! " + "You did " + counterAttackD + " damage!\n");
-				barUpdates();
+				lblStatus.setText("light attacks can't be dodged!\n");
+				break;
 			}
-			txtActionLog.appendText("Dodged Enemy\n");
-			break;	
+			else if(aType == 1)
+			{
+				int counterAttackD = 0;
+				counterAttackD = player.dodge(level.getEnemy(player.getX(), player.getY()));
+				txtAreaEvents.appendText("Dodged!\n");
+				if(counterAttackD > 0)
+				{
+					txtAreaEvents.appendText("Counter Attack! " + "You did " + counterAttackD + " damage!\n");
+					barUpdates();
+				}
+				else if(counterAttackD == 0)
+				{
+					txtAreaEvents.appendText("Failed to dodge! You take " + player.takeDmg(level.getEnemy(player.getX(), player.getY()).attack(0)) + " damage!\n");
+					barUpdates();
+				}
+				txtActionLog.appendText("Attempted to dodge Enemy\n");
+				break;
+			}			
 		case "run":
 			gameStatus = "main";
 			showHelp();
@@ -332,22 +378,42 @@ public class MainController
 	{
 		timer = new Timer();
 		timer.schedule(new enemyAttack(), seconds * 1000, seconds * 1000);
+
 	}
 	public void enterTimer(int seconds)
 	{
 		timer = new Timer();
 		timer.schedule(new enemyAttack(), seconds * 1000 , seconds * 1000);
+
 	}
 	class enemyAttack extends TimerTask
 	{
 		public void run()
 		{
+			if(aType == 0)
+			{
+				lblStatus.setText("The enemy will use a light attack!");
+			}
+			if(aType == 1)
+			{
+				lblStatus.setText("The enemy will use a heavy attack!");
+			}
 			long startTime = System.nanoTime();			
 			System.out.println("attack debug");
 			long elapsedTime = System.nanoTime() - startTime;
-			txtAreaEvents.appendText(level.getEnemy(player.getX(), player.getY()).getName()+" did "+Integer.toString(player.takeDmg(level.getEnemy(player.getX(), player.getY()).attack(0))) + " damage to you!\n");
+
+			System.out.println(aType);
+			if(aType == 0)
+			{
+				txtAreaEvents.appendText(level.getEnemy(player.getX(), player.getY()).getName()+" did "+Integer.toString(player.takeDmg(level.getEnemy(player.getX(), player.getY()).attack(0) - 3)) + " damage to you!\n");
+			}
+			if(aType == 1)
+			{
+				txtAreaEvents.appendText(level.getEnemy(player.getX(), player.getY()).getName()+" did "+Integer.toString(player.takeDmg(level.getEnemy(player.getX(), player.getY()).attack(0))) + " damage to you!\n");
+			}
+			
 			System.out.println(elapsedTime/10000);
-			barUpdates();		
+			barUpdates();
 		}
 	}
 	@FXML
@@ -468,6 +534,10 @@ public class MainController
 		healthBar.setProgress(currentPlayerHealth);
 		hpEnemy.setProgress(currentEnemyHealth);
 		xpBar.setProgress(currentXP);
+	}
+	public void levelLabelUpdates()
+	{
+		
 	}
 
 	public void useItem(int number){

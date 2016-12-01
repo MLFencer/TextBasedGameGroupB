@@ -33,6 +33,10 @@ public class Player extends Entity
 		{
 			return enemy.takeDmg((int)(getActiveWeapon().getValue() + getDmg()));			
 		}
+		if(blockChance == 11)
+		{
+			return 0;
+		}
 		else
 			return 0;
 	}
