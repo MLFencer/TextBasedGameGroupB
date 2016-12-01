@@ -4,16 +4,16 @@ import java.util.ArrayList;
 
 public class PandorasBox {
 
-	private Enemy e1= new Enemy("Hydra",30,10,0,0,0,10,1);
-	private Enemy e2= new Enemy("Scarlac",30,10,0,0,0,10,1);
+	private Enemy e1= new Enemy("Hydra",30,10,0,0,0,30,1);
+	private Enemy e2= new Enemy("Scarlac",30,10,0,0,0,20,1);
 	private Enemy e3= new Enemy("Kree Warrior",40,10,0,0,0,10,1);
-	private Enemy e4= new Enemy("Skeleton Warrior",10,10,0,0,0,10,1);
-	private Enemy e5= new Enemy("Living Armor",15,10,0,0,0,10,1);
-	private Enemy e6= new Enemy("Killer Croc",50,10,0,0,0,10,1);
-	private Enemy e7= new Enemy("John Cena",50,20,0,0,0,10,1);
-	private Enemy e8= new Enemy("Klingon Warrior",40,10,0,0,0,10,1);
-	private Enemy e9= new Enemy("StormTrooper",15,5,0,0,0,10,1);
-	private Enemy e0= new Enemy("Brown Coat",20,10,0,0,0,10,1);
+	private Enemy e4= new Enemy("Skeleton Warrior",10,10,0,0,0,15,1);
+	private Enemy e5= new Enemy("Living Armor",15,10,0,0,0,60,1);
+	private Enemy e6= new Enemy("Killer Croc",50,10,0,0,0,62,1);
+	private Enemy e7= new Enemy("John Cena",50,20,0,0,0,82,1);
+	private Enemy e8= new Enemy("Klingon Warrior",40,10,0,0,0,13,1);
+	private Enemy e9= new Enemy("StormTrooper",15,5,0,0,0,27,1);
+	private Enemy e0= new Enemy("Brown Coat",20,10,0,0,0,49,1);
 	
 
 	private Item i1= new Item("Excalibur", 30, Item.types.Weapon, Item.weaponTypes.Light, 10);

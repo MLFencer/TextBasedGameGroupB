@@ -29,6 +29,7 @@ public class MainController
 	@FXML private TextField txtPlayerActions;
 	@FXML private ProgressBar healthBar, xpBar, hpEnemy;
 	@FXML private Label lblStatus;
+	@FXML private Label lblPlayerLevel;
 
 	private int lastX,lastY,enemyMaxHealth;
 
@@ -266,6 +267,7 @@ public class MainController
 					level.setEnemy(player.getX(), player.getY(), null);
 					txtAreaRoom.setText(level.getRoom(player.getX(), player.getY()));
 					barUpdates();
+					levelLabelUpdates();
 					showHelp();
 				}
 				if(player.getHp() == 0)
@@ -537,7 +539,7 @@ public class MainController
 	}
 	public void levelLabelUpdates()
 	{
-		
+		lblPlayerLevel.setText("level: " + Integer.toString(player.getLevel()));
 	}
 
 	public void useItem(int number){

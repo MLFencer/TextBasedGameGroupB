@@ -90,8 +90,10 @@ public class Player extends Entity
 
 		if (getXp() >= nextLvl)
 		{
+			setXp(getXp()- nextLvl);
 			levelUp();
 			currentLvl = nextLvl;
+
 		}
 		return gainedXp;
 	}
@@ -100,7 +102,6 @@ public class Player extends Entity
 	{
 		String levelUp = "Level up!";
 		setLevel(getLevel() + 1);
-
 		return levelUp;
 	}
 	
