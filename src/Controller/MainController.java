@@ -1,5 +1,8 @@
 package Controller;
 
+import java.util.Timer;
+import java.util.TimerTask;
+import java.lang.*;
 import Model.Item;
 import Model.Level;
 import Model.PandorasBox;
@@ -15,20 +18,27 @@ import javafx.scene.control.TextField;
 public class MainController
 {
 	@FXML private Button btnNorth, btnSouth, btnEast, btnWest, btnAction;
-	@FXML private TextArea txtAreaRoom, txtAreaEvents, txtAreaInventory, txtAreaActions, txtActionLog, txtAreaLoot, txtAreaEnemies;
+	@FXML private TextArea txtAreaRoom;
+	@FXML public TextArea txtAreaEvents;
+	@FXML private TextArea txtAreaInventory;
+	@FXML private TextArea txtAreaActions;
+	@FXML private TextArea txtActionLog;
+	@FXML private TextArea txtAreaLoot;
+	@FXML private TextArea txtAreaEnemies;
 	@FXML private TextField txtPlayerActions;
 	@FXML private ProgressBar healthBar, xpBar, hpEnemy;
 	@FXML private Label lblStatus;
 
 	private int lastX,lastY,enemyMaxHealth;
 
-	private Player player = new Player("name", 100, 5, 10, 10, 10, 0, 1, 0, 0);
-	Level level = new Level();
-	public String gameStatus;
+	public static Player player = new Player("name", 100, 5, 10, 10, 10, 0, 1, 0, 0);
+	public static Level level = new Level();
+	public static String gameStatus;
+	Timer timer;
 
 	public void initialize(){
 		txtPlayerActions.requestFocus();
-		txtAreaEvents.appendText("Welcome to Concept Killer!\nPlease Enter Commands in the TextField to Play.");
+		txtAreaEvents.appendText("Welcome to Concept Killer!\nPlease Enter Commands in the TextField to Play.\n");
 		//gameStatus="starting";
 		gameStatus="main";		
 		level.generateMap();
@@ -53,7 +63,16 @@ public class MainController
 			break;
 		}
 	}
-
+	/*
+	public final static Thread subject1 =  new Thread(new Runnable()
+	{
+		public void run()
+		{			
+			txtAreaEvents.setText(Timing.EnterTimer());
+			barUpdates();
+		}
+	});
+	*/
 /*
 	@SuppressWarnings("resource")
 	public void characterCreation()
@@ -157,6 +176,7 @@ public class MainController
 						txtAreaEvents.setText("Combat Engaged!\n");
 						txtActionLog.appendText("Combat Engaged\n");
 						txtPlayerActions.setText(command);
+						timer.cancel();
 						attack();
 					}
 				}catch(Exception e){
@@ -185,10 +205,12 @@ public class MainController
 		}
 		txtPlayerActions.setText("");
 		switch(command){
-		case "attack":
+		case "attack": 
+			timer.cancel();
+			combatTimer(5); 
 			if(level.getEnemy(player.getX(), player.getY()).getHp() != 0)
 			{
-				txtActionLog.appendText("Hit Enemy\n");;
+				txtActionLog.appendText("Hit Enemy\n");
 			
 				switch(player.getActiveWeapon().getWeaponType())
 				{
@@ -217,6 +239,7 @@ public class MainController
 				}
 				barUpdates();
 				if(level.getEnemy(player.getX(), player.getY()).getHp() == 0){
+					timer.cancel();
 					txtAreaEvents.appendText("The enemy died!\n");
 					txtAreaEvents.appendText(player.gainXp(level.getEnemy(player.getX(), player.getY()).getXp()));
 					gameStatus="main";
@@ -283,7 +306,28 @@ public class MainController
 		 * }
 		 */
 	}
-
+	public void combatTimer(int seconds)
+	{
+		timer = new Timer();
+		timer.schedule(new enemyAttack(), seconds * 1000, seconds * 1000);
+	}
+	public void enterTimer(int seconds)
+	{
+		timer = new Timer();
+		timer.schedule(new enemyAttack(), seconds * 1000 , seconds * 1000);
+	}
+	class enemyAttack extends TimerTask
+	{
+		public void run()
+		{
+			long startTime = System.nanoTime();			
+			System.out.println("attack debug");
+			long elapsedTime = System.nanoTime() - startTime;
+			txtAreaEvents.appendText(level.getEnemy(player.getX(), player.getY()).getName()+" did "+Integer.toString(player.takeDmg(level.getEnemy(player.getX(), player.getY()).attack(0))) + " damage to you!\n");
+			System.out.println(elapsedTime/10000);
+			barUpdates();		
+		}
+	}
 	@FXML
 	public void goNorth()
 	{
@@ -293,7 +337,8 @@ public class MainController
 				lastY=player.getY();
 				player.setY(player.getY()-1);
 				txtAreaRoom.setText(level.getRoom(player.getX(), player.getY()));
-				enemyMaxHealth=level.getEnemy(player.getX(), player.getY()).getHp();
+				enemyMaxHealth = level.getEnemy(player.getX(), player.getY()).getHp();
+				enterTimer(10);
 				txtActionLog.appendText("North\n");
 				lblStatus.setText("");
 				barUpdates();
@@ -314,7 +359,8 @@ public class MainController
 				lastY=player.getY();
 				player.setY(player.getY()+1);
 				txtAreaRoom.setText(level.getRoom(player.getX(), player.getY()));
-				enemyMaxHealth=level.getEnemy(player.getX(), player.getY()).getHp();
+				enemyMaxHealth = level.getEnemy(player.getX(), player.getY()).getHp();
+				enterTimer(10);
 				txtActionLog.appendText("South\n");
 				lblStatus.setText("");
 				barUpdates();
@@ -336,7 +382,8 @@ public class MainController
 				lastY=player.getY();
 				player.setX(player.getX()-1);
 				txtAreaRoom.setText(level.getRoom(player.getX(), player.getY()));
-				enemyMaxHealth=level.getEnemy(player.getX(), player.getY()).getHp();
+				enemyMaxHealth = level.getEnemy(player.getX(), player.getY()).getHp();
+				enterTimer(10);
 				txtActionLog.appendText("West\n");
 				lblStatus.setText("");
 				barUpdates();
@@ -358,7 +405,9 @@ public class MainController
 				lastY=player.getY();
 				player.setX(player.getX()+1);
 				txtAreaRoom.setText(level.getRoom(player.getX(), player.getY()));
-				enemyMaxHealth=level.getEnemy(player.getX(), player.getY()).getHp();
+				System.out.println("entered debug");
+				enemyMaxHealth = level.getEnemy(player.getX(), player.getY()).getHp();
+				enterTimer(10);
 				txtActionLog.appendText("East\n");
 				lblStatus.setText("");
 				barUpdates();
