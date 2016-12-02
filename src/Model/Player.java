@@ -9,16 +9,16 @@ public class Player extends Entity
 	private int attributePoints = 10;
 	private Item activeWeapon;
 	private ArrayList<Item> inventory = new ArrayList<Item>();
-	private double currentLvl = 100/1.5;
 	private final double MULTIPLIER = 1.5;
-	private double nextLvl = currentLvl * MULTIPLIER;
+	private double nextLvl = 100;
 	private int maxHp;
 
-	public Player(String nameIn, int hpIn, int dmgIn, int strIn, int dexIn, int conIn, double xpIn, int levelIn, int xIn, int yIn)
+	public Player(String nameIn, int hpIn, int maxHpIn, int dmgIn, int strIn, int dexIn, int conIn, double xpIn, int levelIn, int xIn, int yIn)
 	{
 		super(nameIn, hpIn, dmgIn, strIn, dexIn, conIn, xpIn, levelIn);
 		x = xIn;
 		y = yIn;
+		maxHp = maxHpIn;
 	}
 
 
@@ -27,6 +27,7 @@ public class Player extends Entity
 		setHp(getMaxHp() + getCon());
 		setLevel(getLevel() + 1);
 		setPoints(getPoints() + 1);
+		nextLvl = nextLvl * MULTIPLIER;
 	}
 	public int block(Enemy enemy)
 	{
@@ -117,7 +118,6 @@ public class Player extends Entity
 		{
 			setXp(getXp()- nextLvl);
 			levelUp();
-			currentLvl = nextLvl;
 
 		}
 		return gainedXp;

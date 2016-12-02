@@ -34,7 +34,7 @@ public class MainController
 
 	private int lastX,lastY,enemyMaxHealth;
 
-	public static Player player = new Player("name", 100, 5, 10, 10, 10, 0, 1, 0, 0);
+	public static Player player = new Player("name", 90, 90, 5, 10, 10, 10, 0, 1, 0, 0);
 	public static Level level = new Level();
 	public static String gameStatus;
 	Timer timer;
@@ -53,6 +53,7 @@ public class MainController
 		player.setActiveWeapon(pan.fist);
 		Item h=pan.i7;
 		player.addItem(h);
+		player.updateStats();
 		txtAreaInventory.setText(player.InventoryListString());
 		txtAreaRoom.setText(level.getRoom(player.getX(), player.getY()));
 
