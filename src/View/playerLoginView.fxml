@@ -24,9 +24,9 @@
       <RowConstraints maxHeight="71.0" minHeight="7.0" prefHeight="48.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Label alignment="CENTER" prefHeight="58.0" prefWidth="291.0" text="Login" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER">
+      <Label alignment="CENTER" prefHeight="58.0" prefWidth="291.0" text="Conceptual Login" textFill="#0c5423" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER">
          <font>
-            <Font size="39.0" />
+            <Font size="35.0" />
          </font>
       </Label>
       <Label text="Username:" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />

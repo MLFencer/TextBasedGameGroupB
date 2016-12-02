@@ -21,7 +21,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import sun.rmi.runtime.Log;
-
 import org.json.JSONObject;
 
 public class LoginController {
