@@ -560,20 +560,17 @@ public class MainController
 	{
 		lblPlayerLevel.setText("level: " + Integer.toString(player.getLevel()));
 	}
-<<<<<<< HEAD
 	
 	public void setUsername(String user)
 	{
 		this.username = user;
 	}
 	
-=======
 	public void nameLabelUpdates()
 	{
 		lblPlayerName.setText("Attribute Points: " + player.getPoints());
 	}
 
->>>>>>> origin/master
 	public void useItem(int number){
 		System.out.println(number);
 		number=number-1;
