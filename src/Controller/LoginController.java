@@ -27,33 +27,6 @@ public class LoginController {
 	@FXML
 	public void clickOnLogin(ActionEvent event) throws Exception
 	{
-		txtPassword.setOnKeyPressed(new EventHandler<KeyEvent>() {
-		    @Override
-		    public void handle(KeyEvent keyEvent){
-		        if (keyEvent.getCode() == KeyCode.ENTER)  {
-		    		if(txtUsername.getText().equals("user") && txtPassword.getText().equals("pass"))
-		    		{
-		    			lblActionStatus.setText("Success!");
-		    			lblActionStatus.setTextFill(Color.GREEN);
-		    		    Stage stage = (Stage) btnLogin.getScene().getWindow();
-		    		    stage.close();
-		    		    try {
-							mainMenuPage();
-						} catch (Exception e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-		    		}
-		    		else
-		    		{
-		    			lblActionStatus.setText("Invalid Username or Password!");
-		    			lblActionStatus.setTextFill(Color.FIREBRICK);
-		    		}
-		    		txtUsername.setText("");
-		    		txtPassword.setText("");
-		        }
-		    }
-		});
 		if(txtUsername.getText().equals("user") && txtPassword.getText().equals("pass"))
 		{
 			lblActionStatus.setText("Success!");
@@ -75,23 +48,16 @@ public class LoginController {
 	@FXML
 	public void clickOnRegister(ActionEvent event) throws Exception
 	{
-		linkRegister.setOnMouseClicked(new EventHandler<MouseEvent>() {
-		    @Override
-		    public void handle(MouseEvent mouseEvent) {
-		        if (mouseEvent.getEventType() != null)  {
-		            Stage stage = (Stage) linkRegister.getScene().getWindow();
-		            stage.close();
-		            try {
-						registerPage();
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}		        
-		        }
-		    }
-		});
+		Stage stage = (Stage) linkRegister.getScene().getWindow();
+		stage.close();
+		try 
+		{
+			registerPage();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		        
 	}
-	
+
 	@FXML
 	public void clickOnSubmit(ActionEvent event)
 	{
@@ -123,7 +89,7 @@ public class LoginController {
 	public void registerPage() throws Exception
 	{
 		Stage primaryStage = new Stage();
-		Parent root = FXMLLoader.load(getClass().getResource("/View/NewUser.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("/View/newUserView.fxml"));
 		Scene scene = new Scene(root,400,400);
 		primaryStage.setScene(scene);
 		primaryStage.show();
