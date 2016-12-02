@@ -12,6 +12,7 @@ public class Player extends Entity
 	private double currentLvl = 100/1.5;
 	private final double MULTIPLIER = 1.5;
 	private double nextLvl = currentLvl * MULTIPLIER;
+	private int maxHp;
 
 	public Player(String nameIn, int hpIn, int dmgIn, int strIn, int dexIn, int conIn, double xpIn, int levelIn, int xIn, int yIn)
 	{
@@ -23,7 +24,9 @@ public class Player extends Entity
 
 	public void updateStats()
 	{
-		
+		setHp(getMaxHp() + getCon());
+		setLevel(getLevel() + 1);
+		setPoints(getPoints() + 1);
 	}
 	public int block(Enemy enemy)
 	{
@@ -51,6 +54,28 @@ public class Player extends Entity
 		else
 			return 0;
 	}
+	public int getAttributePoints() {
+		return attributePoints;
+	}
+
+
+	public void setAttributePoints(int attributePoints) {
+		this.attributePoints = attributePoints;
+	}
+
+
+	public int getMaxHp() 
+	{
+		return maxHp;
+	}
+
+
+	public void setMaxHp(int maxHp) 
+	{
+		this.maxHp = maxHp;
+	}
+
+
 	public int calculateModifier(int attribute)
 	{
 		if(attribute < 8)
@@ -101,7 +126,7 @@ public class Player extends Entity
 	public String levelUp()
 	{
 		String levelUp = "Level up!";
-		setLevel(getLevel() + 1);
+		updateStats();
 		return levelUp;
 	}
 	

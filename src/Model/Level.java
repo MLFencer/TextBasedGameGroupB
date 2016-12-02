@@ -22,13 +22,14 @@ public class Level {
 				if(i==0&&j==0){
 					Item it =p.getItems().get(1);
 					Enemy e =null;
-					Room r = new Room(it,e);
+					String d = p.getRandomDescription();
+					Room r = new Room(it,e, d);
 					ArrayList t =(ArrayList)rooms.get(i);
 					t.add(j,r);
 				}else{
 				Item it =p.getItems().get(rand.nextInt(p.getItems().size()));
 				Enemy e = p.getEnemies().get(rand.nextInt(p.getEnemies().size()));
-				Room r = new Room(it,e);
+				Room r = new Room(it,e,p.getRandomDescription());
 				ArrayList t =(ArrayList)rooms.get(i);
 				t.add(j,r);
 				}
@@ -42,7 +43,6 @@ public class Level {
 		Room r = (Room)t.get(y);
 		return r.getEnemy();
 	}
-
 	@SuppressWarnings("rawtypes")
 	public Item getItem(int x,int y){
 		ArrayList t = (ArrayList)rooms.get(x);
@@ -75,7 +75,7 @@ public class Level {
             m="No Monster";
         }
 
-        return "There is " + m + " and " + l + " in the room";
+        return r.getDescription() + "\nThere is " + m + " and " + l + " in the room";
     }
 
 	public int getSize(){

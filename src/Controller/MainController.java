@@ -30,6 +30,7 @@ public class MainController
 	@FXML private ProgressBar healthBar, xpBar, hpEnemy;
 	@FXML private Label lblStatus;
 	@FXML private Label lblPlayerLevel;
+	@FXML private Label lblPlayerName;
 
 	private int lastX,lastY,enemyMaxHealth;
 
@@ -524,14 +525,14 @@ public class MainController
 
 	public void barUpdates()
 	{
-		double currentPlayerHealth = (double)player.getHp()/100;
+		double currentPlayerHealth = (double)player.getHp()/player.getMaxHp();
 		double currentEnemyHealth;
 		try{
 			currentEnemyHealth = (double)level.getEnemy(player.getX(), player.getY()).getHp() / enemyMaxHealth;
 		} catch(Exception e){
 			currentEnemyHealth=0;
 		}
-		double currentXP = (double)player.getXp() / 100;
+		double currentXP = (double)player.getXp() / player.getNextLevel();
 
 		healthBar.setProgress(currentPlayerHealth);
 		hpEnemy.setProgress(currentEnemyHealth);
@@ -540,6 +541,10 @@ public class MainController
 	public void levelLabelUpdates()
 	{
 		lblPlayerLevel.setText("level: " + Integer.toString(player.getLevel()));
+	}
+	public void nameLabelUpdates()
+	{
+		lblPlayerName.setText("Attribute Points: " + player.getPoints());
 	}
 
 	public void useItem(int number){
