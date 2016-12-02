@@ -38,16 +38,16 @@ public class LoginController {
 		
 		if(requestUserEntry(username, password))
 		{
-			lblActionStatus.setText("Success!");
-			lblActionStatus.setTextFill(Color.GREEN);
+			getLblActionStatus().setText("Success!");
+			getLblActionStatus().setTextFill(Color.GREEN);
 		    Stage stage = (Stage) btnLogin.getScene().getWindow();
 		    stage.close();
 		    mainMenuPage(username);
 		}
 		else
 		{
-			lblActionStatus.setText("Invalid Username or Password!");
-			lblActionStatus.setTextFill(Color.FIREBRICK);
+			getLblActionStatus().setText("Invalid Username or Password!");
+			getLblActionStatus().setTextFill(Color.FIREBRICK);
 		}
 		txtUsername.setText("");
 		txtPassword.setText("");
@@ -100,7 +100,7 @@ public class LoginController {
 				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/View/playerLoginView.fxml"));
 				Parent root = fxmlLoader.load();
 				LoginController controller = fxmlLoader.<LoginController>getController();
-				controller.lblActionStatus.setText("User Succesfully Registered!");
+				controller.getLblActionStatus().setText("User Succesfully Registered!");
 				Scene scene = new Scene(root,500,250);
 				primaryStage.setScene(scene);
 				primaryStage.show();
@@ -159,4 +159,12 @@ public class LoginController {
 	    else
 	    	return false;
 	 }
+
+	public Label getLblActionStatus() {
+		return lblActionStatus;
+	}
+
+	public void setLblActionStatus(Label lblActionStatus) {
+		this.lblActionStatus = lblActionStatus;
+	}
 }

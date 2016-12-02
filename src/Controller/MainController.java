@@ -10,11 +10,15 @@ import Model.PandorasBox;
 import Model.Player;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 //import java.util.Scanner;
 public class MainController
 {
@@ -61,7 +65,8 @@ public class MainController
 		txtAreaRoom.setText(level.getRoom(player.getX(), player.getY()));
 
 	}
-	public void menuSwitch(){
+	public void menuSwitch() throws Exception
+	{
 		String command = txtPlayerActions.getText();
 		switch (command){
 		case "1":
@@ -102,7 +107,7 @@ public class MainController
 */	
 	// Method for assigning cardinality buttons to input into txtPlayerActions.
 	@FXML
-	public void onPlayerAction(ActionEvent event)
+	public void onPlayerAction(ActionEvent event) throws Exception
 	{
 		System.out.println("enter");
 		// Handle Enter Key Press
@@ -121,7 +126,7 @@ public class MainController
 	}
 
 	@FXML
-	public void mainRunner(){
+	public void mainRunner() throws Exception{
 		lblHelp.setText("");
 		String command = txtPlayerActions.getText();
 		if(command.contains("use ")){
@@ -222,6 +227,14 @@ public class MainController
 				player.updateStats();
 				nameLabelUpdates();
 				break;
+			case "exit":
+				mainMenuPage();
+				player.death();
+				break;
+			case "logout":
+				loginPage();
+				player.death();
+				break;
 			default:
 				lblStatus.setText("Unknown Command!");
 				break;
@@ -320,6 +333,8 @@ public class MainController
 					player.setXp(0);
 					player.setLevel(0);
 					barUpdates();
+					levelLabelUpdates();
+					nameLabelUpdates();
 					txtAreaRoom.setText(level.getRoom(player.getX(), player.getY()));
 					PandorasBox pan1 = new PandorasBox();
 					player.setActiveWeapon(pan1.fist);
@@ -599,6 +614,12 @@ public class MainController
 		case "experience":
 		lblHelp.setText("Experience points allow you to level up, which gives you attribute points to upgrade your player");
 		break;
+		case "exit":
+			lblHelp.setText("Returns to main menu.");
+			break;
+		case "logout":
+			lblHelp.setText("Returns to logout page.");
+			break;
 		default:
 			lblHelp.setText("Unknown Help item!");
 			break;
@@ -645,6 +666,30 @@ public class MainController
 	public void nameLabelUpdates()
 	{
 		lblPlayerName.setText("Attribute Points: " + player.getPoints());
+	}
+	public void mainMenuPage() throws Exception
+	{
+		Stage stage = (Stage)txtPlayerActions.getScene().getWindow();
+		stage.close();
+		Stage primaryStage = new Stage();
+		Parent root = FXMLLoader.load(getClass().getResource("/View/mainMenuView.fxml"));
+		Scene scene = new Scene(root,296,270);
+		primaryStage.setScene(scene);
+		primaryStage.show();
+	}
+	
+	public void loginPage() throws Exception
+	{
+		Stage stage = (Stage)txtPlayerActions.getScene().getWindow();
+		stage.close();
+		Stage primaryStage = new Stage();
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/View/playerLoginView.fxml"));
+		Parent root = fxmlLoader.load();
+		LoginController controller = fxmlLoader.<LoginController>getController();
+		controller.getLblActionStatus().setText("User Succesfully Registered!");
+		Scene scene = new Scene(root,500,250);
+		primaryStage.setScene(scene);
+		primaryStage.show();
 	}
 
 	public void useItem(int number){

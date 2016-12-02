@@ -174,7 +174,7 @@ public class Player extends Entity
 		this.y = 0;
 		setHp(100);
 		inventory.clear();
-
+		setPoints(5);
 	}
 	public Item getActiveWeapon() {
 		return activeWeapon;
