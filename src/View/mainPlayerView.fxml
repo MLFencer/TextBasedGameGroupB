@@ -153,6 +153,14 @@
                   </AnchorPane>
                </children>
             </VBox>
+            <Label fx:id="lblHelp" alignment="BOTTOM_CENTER" prefHeight="52.0" prefWidth="309.0" textFill="#bfb723" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+               <font>
+                  <Font size="13.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="35.0" />
+               </GridPane.margin>
+            </Label>
          </children>
       </GridPane>
    </children>

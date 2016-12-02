@@ -28,7 +28,7 @@ public class MainController
 	@FXML private TextArea txtAreaEnemies;
 	@FXML private TextField txtPlayerActions;
 	@FXML private ProgressBar healthBar, xpBar, hpEnemy;
-	@FXML private Label lblStatus;
+	@FXML private Label lblStatus, lblHelp;
 	@FXML private Label lblPlayerLevel;
 	@FXML private Label lblPlayerName;
 
@@ -122,11 +122,17 @@ public class MainController
 
 	@FXML
 	public void mainRunner(){
+		lblHelp.setText("");
 		String command = txtPlayerActions.getText();
 		if(command.contains("use ")){
 			System.out.println(command.substring(4));
 			useItem(Integer.parseInt(command.substring(4)));
 			command="use";
+		}
+		if(command.contains("help ")){
+			System.out.println(command.substring(5));
+			showHelpInfo(command.substring(5));
+			command = "help";
 		}
 		if(!gameStatus.equals("fighting")){
 			lblStatus.setText("");
@@ -195,6 +201,9 @@ public class MainController
 			case "use":
 				txtActionLog.appendText("Used Item or Equipped Weapon\n");
 				break;
+			case "help":
+				txtActionLog.appendText("Requested help");
+				break;
 			case "assign strength":
 				player.setStr(player.getStr() + 1);
 				player.updateStats();
@@ -218,6 +227,7 @@ public class MainController
 	}
 	@FXML
 	public void attack(){
+		lblHelp.setText("");
 		lblStatus.setText("");
 		String command = txtPlayerActions.getText();
 		if(command.contains("use ")){
@@ -528,7 +538,67 @@ public class MainController
 		}
 		txtPlayerActions.requestFocus();
 	}
-
+	
+	public void showHelpInfo(String message)
+	{
+		switch(message){
+		case "north":
+		lblHelp.setText("Moves the player north one room.");
+		break;
+		case "south":
+		lblHelp.setText("Moves the player south one room.");
+		break;
+		case "west":
+		lblHelp.setText("Moves the player west one room.");
+		break;
+		case "east":
+		lblHelp.setText("Moves the player east one room");
+		break;
+		case "back":
+		lblHelp.setText("Move to the previous room.");
+		break;
+		case "grab":
+		lblHelp.setText("Puts item into inventory.");
+		break;
+		case "attack":
+		lblHelp.setText("Engage and attempt to damage the enemy.");
+		break;
+		case "use":
+		lblHelp.setText("Use or equip items.");
+		break;
+		case "block":
+		lblHelp.setText("Chance of blocking light attack and possibility of counter attacking.");
+		break;
+		case "dodge":
+		lblHelp.setText("Chance of dodging heavy attacks and possibility of counter attack.");
+		break;
+		case "run":
+		lblHelp.setText("Player flees from combat and returns to previous room.");
+		break;
+		case "hp":
+		lblHelp.setText("Total player life points.");
+		break;
+		case "strength":
+		lblHelp.setText("How physically strong the player is. Increases damage for heavy weapons.");
+		break;
+		case "dexterity":
+		lblHelp.setText("How agile the player is. Increases damage for light weapons and the probability of dodging.");
+		break;
+		case "constitution":
+		lblHelp.setText("How sturdy a player is. Increases hp and the probability of blocking a heavy attack.");
+		break;
+		case "weapons":
+		lblHelp.setText("Weapons determine the amount of damage dealt to a enemy. Weapons eventually break.");
+		break;
+		case "experience":
+		lblHelp.setText("Experience points allow you to level up, which gives you attribute points to upgrade your player");
+		break;
+		default:
+			lblHelp.setText("Unknown Help item!");
+			break;
+		}
+	}
+	
 	public void showHelp(){
 		String value = "";
 		if (gameStatus == "main"){
