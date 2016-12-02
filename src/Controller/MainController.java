@@ -194,6 +194,18 @@ public class MainController
 			case "use":
 				txtActionLog.appendText("Used Item or Equipped Weapon\n");
 				break;
+			case "assign strength":
+				player.setStr(player.getStr() + 1);
+				player.updateStats();
+				break;
+			case "assign dexterity":
+				player.setDex(player.getDex() + 1);
+				player.updateStats();
+				break;
+			case "assign constitution":
+				player.setCon(player.getCon() + 1);
+				player.updateStats();
+				break;
 			default:
 				lblStatus.setText("Unknown Command!");
 				break;

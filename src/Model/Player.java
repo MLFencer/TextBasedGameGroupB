@@ -6,7 +6,7 @@ public class Player extends Entity
 {
 
 	private int x, y;
-	private int attributePoints = 10;
+	private int attributePoints = 5;
 	private Item activeWeapon;
 	private ArrayList<Item> inventory = new ArrayList<Item>();
 	private final double MULTIPLIER = 1.5;
