@@ -525,7 +525,7 @@ public class MainController
 
 	public void barUpdates()
 	{
-		double currentPlayerHealth = (double)player.getHp()/player.getMaxHp();
+		double currentPlayerHealth = (double)player.getHp()/(double)player.getMaxHp();
 		double currentEnemyHealth;
 		try{
 			currentEnemyHealth = (double)level.getEnemy(player.getX(), player.getY()).getHp() / enemyMaxHealth;
