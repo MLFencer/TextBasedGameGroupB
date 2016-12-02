@@ -116,7 +116,7 @@
                   <Insets />
                </GridPane.margin>
             </Label>
-            <Label fx:id="lblPlayerName" prefHeight="17.0" prefWidth="128.0" text="Player Name" GridPane.columnIndex="3" GridPane.rowIndex="2" GridPane.valignment="TOP">
+            <Label fx:id="lblPlayerName" prefHeight="17.0" prefWidth="128.0" GridPane.columnIndex="3" GridPane.rowIndex="2" GridPane.valignment="TOP">
                <GridPane.margin>
                   <Insets top="5.0" />
                </GridPane.margin>

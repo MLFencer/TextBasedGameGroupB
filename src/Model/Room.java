@@ -3,10 +3,12 @@ package Model;
 public class Room {
 	private Item item;
 	private Enemy enemy;
+	private String description;
 
-	public Room(Item i, Enemy e){
+	public Room(Item i, Enemy e, String d){
 		this.enemy=e;
 		this.item=i;
+		this.description = d;
 	}
 
 	public Item getItem() {
@@ -23,6 +25,14 @@ public class Room {
 
 	public void setEnemy(Enemy enemy) {
 		this.enemy = enemy;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 

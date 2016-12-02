@@ -30,11 +30,12 @@ public class MainController
 	@FXML private ProgressBar healthBar, xpBar, hpEnemy;
 	@FXML private Label lblStatus;
 	@FXML private Label lblPlayerLevel;
+	@FXML private Label lblPlayerName;
 
 	private int lastX,lastY,enemyMaxHealth;
 	private String username;
 
-	public static Player player = new Player("name", 100, 5, 10, 10, 10, 0, 1, 0, 0);
+	public static Player player = new Player("name", 90, 90, 5, 10, 10, 10, 0, 1, 0, 0);
 	public static Level level = new Level();
 	public static String gameStatus;
 	Timer timer;
@@ -44,15 +45,18 @@ public class MainController
 	public void initialize(){
 		txtPlayerActions.requestFocus();
 		txtAreaEvents.appendText("Welcome to Concept Killer!\nPlease Enter Commands in the TextField to Play.\n");
+		System.out.println(player.getXp() + " / " + player.getNextLevel());
 		//gameStatus="starting";
 		gameStatus="main";		
 		level.generateMap();
 		showHelp();
 		barUpdates();
+		nameLabelUpdates();
 		PandorasBox pan = new PandorasBox();
 		player.setActiveWeapon(pan.fist);
 		Item h=pan.i7;
 		player.addItem(h);
+		player.updateStats();
 		txtAreaInventory.setText(player.InventoryListString());
 		txtAreaRoom.setText(level.getRoom(player.getX(), player.getY()));
 
@@ -191,6 +195,18 @@ public class MainController
 			case "use":
 				txtActionLog.appendText("Used Item or Equipped Weapon\n");
 				break;
+			case "assign strength":
+				player.setStr(player.getStr() + 1);
+				player.updateStats();
+				break;
+			case "assign dexterity":
+				player.setDex(player.getDex() + 1);
+				player.updateStats();
+				break;
+			case "assign constitution":
+				player.setCon(player.getCon() + 1);
+				player.updateStats();
+				break;
 			default:
 				lblStatus.setText("Unknown Command!");
 				break;
@@ -263,12 +279,14 @@ public class MainController
 					timer.cancel();
 					txtAreaEvents.appendText("The enemy died!\n");
 					lblStatus.setText("");
-					txtAreaEvents.appendText(player.gainXp(level.getEnemy(player.getX(), player.getY()).getXp()));
+					txtAreaEvents.appendText(player.gainXp(level.getEnemy(player.getX(), player.getY()).getXp()));					
 					gameStatus="main";
 					level.setEnemy(player.getX(), player.getY(), null);
 					txtAreaRoom.setText(level.getRoom(player.getX(), player.getY()));
 					barUpdates();
 					levelLabelUpdates();
+					nameLabelUpdates();
+					System.out.println(player.getXp() + " / " + player.getNextLevel());
 					showHelp();
 				}
 				if(player.getHp() == 0)
@@ -406,11 +424,11 @@ public class MainController
 			long elapsedTime = System.nanoTime() - startTime;
 
 			System.out.println(aType);
-			if(aType == 0)
+			if(aType == 0 && level.getEnemy(player.getX(), player.getY()) != null)
 			{
 				txtAreaEvents.appendText(level.getEnemy(player.getX(), player.getY()).getName()+" did "+Integer.toString(player.takeDmg(level.getEnemy(player.getX(), player.getY()).attack(0) - 3)) + " damage to you!\n");
 			}
-			if(aType == 1)
+			if(aType == 1 && level.getEnemy(player.getX(), player.getY()) != null)
 			{
 				txtAreaEvents.appendText(level.getEnemy(player.getX(), player.getY()).getName()+" did "+Integer.toString(player.takeDmg(level.getEnemy(player.getX(), player.getY()).attack(0))) + " damage to you!\n");
 			}
@@ -525,14 +543,14 @@ public class MainController
 
 	public void barUpdates()
 	{
-		double currentPlayerHealth = (double)player.getHp()/100;
+		double currentPlayerHealth = (double)player.getHp()/(double)player.getMaxHp();
 		double currentEnemyHealth;
 		try{
 			currentEnemyHealth = (double)level.getEnemy(player.getX(), player.getY()).getHp() / enemyMaxHealth;
 		} catch(Exception e){
 			currentEnemyHealth=0;
 		}
-		double currentXP = (double)player.getXp() / 100;
+		double currentXP = (double)player.getXp() / player.getNextLevel();
 
 		healthBar.setProgress(currentPlayerHealth);
 		hpEnemy.setProgress(currentEnemyHealth);
@@ -542,12 +560,20 @@ public class MainController
 	{
 		lblPlayerLevel.setText("level: " + Integer.toString(player.getLevel()));
 	}
+<<<<<<< HEAD
 	
 	public void setUsername(String user)
 	{
 		this.username = user;
 	}
 	
+=======
+	public void nameLabelUpdates()
+	{
+		lblPlayerName.setText("Attribute Points: " + player.getPoints());
+	}
+
+>>>>>>> origin/master
 	public void useItem(int number){
 		System.out.println(number);
 		number=number-1;
