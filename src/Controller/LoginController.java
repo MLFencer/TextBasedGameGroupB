@@ -26,8 +26,8 @@ import org.json.JSONObject;
 public class LoginController {
 	@FXML private TextField txtUsername, txtEmail;
 	@FXML private PasswordField txtPassword, txtConfirmPassword;
-	@FXML private Button btnLogin, btnPos, btnBack;
-	@FXML private Label lblStatus, lblActionStatus, lblStatusReg;
+	@FXML private Button btnLogin, btnPos, btnBack, btnSubmit;
+	@FXML private Label lblActionStatus, lblStatusReg;
 	@FXML private Hyperlink linkRegister;
 
 	@FXML
@@ -42,7 +42,7 @@ public class LoginController {
 			lblActionStatus.setTextFill(Color.GREEN);
 		    Stage stage = (Stage) btnLogin.getScene().getWindow();
 		    stage.close();
-		    mainMenuPage();
+		    mainMenuPage(username);
 		}
 		else
 		{
@@ -83,8 +83,28 @@ public class LoginController {
 		else
 		{
 			URL url = new URL("http://www.db.nofool.net/add.php?user=" + username + "&password=" + password);
-		    URLConnection con = url.openConnection();
-		    con.connect();
+			BufferedReader in = new BufferedReader(
+		            new InputStreamReader(url.openStream()));
+		    String inputLine;
+		    inputLine = in.readLine();
+		    in.close();
+		    if(inputLine.substring(1, inputLine.length()-1).equals("false"))
+		    {
+		    	lblStatusReg.setText("User Already Exists!");
+		    }
+		    else
+		    {
+		    	Stage stage = (Stage) btnSubmit.getScene().getWindow();
+				stage.close();
+				Stage primaryStage = new Stage();
+				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/View/playerLoginView.fxml"));
+				Parent root = fxmlLoader.load();
+				LoginController controller = fxmlLoader.<LoginController>getController();
+				controller.lblActionStatus.setText("User Succesfully Registered!");
+				Scene scene = new Scene(root,500,250);
+				primaryStage.setScene(scene);
+				primaryStage.show();
+		    }
 		}
 		txtUsername.setText("");
 		txtPassword.setText("");
@@ -97,15 +117,18 @@ public class LoginController {
 		stage.close();
 		Stage primaryStage = new Stage();
 		Parent root = FXMLLoader.load(getClass().getResource("/View/playerLoginView.fxml"));
-		Scene scene = new Scene(root,300,250);
+		Scene scene = new Scene(root,500,250);
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
-	public void mainMenuPage() throws Exception
+	public void mainMenuPage(String user) throws Exception
 	{
 		Stage primaryStage = new Stage();
-		Parent root = FXMLLoader.load(getClass().getResource("/View/mainPlayerView.fxml"));
-		Scene scene = new Scene(root,600,500);
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/View/mainMenuView.fxml"));
+		Parent root = fxmlLoader.load();
+		MainMenuController controller = fxmlLoader.<MainMenuController>getController();
+		controller.setUsername(user);
+		Scene scene = new Scene(root,296,270);
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}

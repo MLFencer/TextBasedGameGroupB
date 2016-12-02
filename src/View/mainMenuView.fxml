@@ -25,10 +25,9 @@
             <Font size="28.0" />
          </font>
       </Label>
-      <Button fx:id="btnCharacterCreation" mnemonicParsing="false" prefHeight="25.0" prefWidth="198.0" text="Character Creation" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
-      <Button fx:id="btnMultiplayer" mnemonicParsing="false" prefHeight="25.0" prefWidth="215.0" text="Multiplayer" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-      <Button fx:id="btnSingleplayer" mnemonicParsing="false" prefHeight="25.0" prefWidth="255.0" text="Singleplayer" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
-      <Button fx:id="btnLogout" mnemonicParsing="false" text="Logout" textFill="#6f0d0d" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+      <Button fx:id="btnMultiplayer" mnemonicParsing="false" onAction="#clickMultiplayer" prefHeight="25.0" prefWidth="215.0" text="Multiplayer" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+      <Button fx:id="btnSingleplayer" mnemonicParsing="false" onAction="#clickSingleplayer" prefHeight="25.0" prefWidth="255.0" text="Singleplayer" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+      <Button fx:id="btnLogout" mnemonicParsing="false" onAction="#clickLogout" text="Logout" textFill="#6f0d0d" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
          <GridPane.margin>
             <Insets bottom="15.0" />
          </GridPane.margin>
