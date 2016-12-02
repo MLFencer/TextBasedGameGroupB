@@ -1,5 +1,12 @@
 package Controller;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.PrintStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -11,23 +18,26 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import sun.rmi.runtime.Log;
+
+import org.json.JSONObject;
 
 public class LoginController {
 	@FXML private TextField txtUsername, txtEmail;
-	@FXML private PasswordField txtPassword;
+	@FXML private PasswordField txtPassword, txtConfirmPassword;
 	@FXML private Button btnLogin, btnPos, btnBack;
-	@FXML private Label lblStatus, lblActionStatus;
+	@FXML private Label lblStatus, lblActionStatus, lblStatusReg;
 	@FXML private Hyperlink linkRegister;
 
 	@FXML
 	public void clickOnLogin(ActionEvent event) throws Exception
 	{
-		if(txtUsername.getText().equals("user") && txtPassword.getText().equals("pass"))
+		String username = txtUsername.getText();
+		String password = txtPassword.getText();
+		
+		if(requestUserEntry(username, password))
 		{
 			lblActionStatus.setText("Success!");
 			lblActionStatus.setTextFill(Color.GREEN);
@@ -59,11 +69,27 @@ public class LoginController {
 	}
 
 	@FXML
-	public void clickOnSubmit(ActionEvent event)
+	public void clickOnSubmit(ActionEvent event) throws Exception
 	{
+		String username = txtUsername.getText();
+		String password = txtPassword.getText();
+		if(username.equals(""))
+		{
+			lblStatusReg.setText("Must have a Username!");
+		}
+		else if(!password.equals(txtConfirmPassword.getText()))
+		{
+			lblStatusReg.setText("Passwords Dont Match!");
+		}
+		else
+		{
+			URL url = new URL("http://www.db.nofool.net/add.php?user=" + username + "&password=" + password);
+		    URLConnection con = url.openConnection();
+		    con.connect();
+		}
 		txtUsername.setText("");
-		txtEmail.setText("");
 		txtPassword.setText("");
+		txtConfirmPassword.setText("");
 	}
 	@FXML 
 	public void clickOnBack(ActionEvent event) throws Exception
@@ -94,9 +120,21 @@ public class LoginController {
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
-	/*private void requestUserEntry() {
-		String query = "request user entry " + "(user, password)"
-				+ "values(?,?)";
-		ResultSet keys = null;
-	 }*/
+	private boolean requestUserEntry(String user, String pass) throws Exception
+	{		
+		URL url = new URL("http://www.db.nofool.net/getPassword.php?user=" + user);
+	    BufferedReader in = new BufferedReader(
+	            new InputStreamReader(url.openStream()));
+	    String inputLine;
+	    inputLine = in.readLine();
+	      
+	    String returnString = "";
+	    JSONObject json_data = new JSONObject(inputLine);
+	    returnString = json_data.getString("password");
+	    in.close();
+	    if(returnString.equals(pass))
+	    	return true;
+	    else
+	    	return false;
+	 }
 }

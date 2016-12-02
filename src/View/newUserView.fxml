@@ -46,7 +46,7 @@
                         <Insets top="10.0" />
                      </padding>
                   </Label>
-                  <PasswordField fx:id="txtPasswordConfirm" maxWidth="200.0" onAction="#clickOnSubmit" />
+                  <PasswordField fx:id="txtConfirmPassword" maxWidth="200.0" onAction="#clickOnSubmit" />
                </children>
             </VBox>
             <HBox alignment="CENTER" maxHeight="-Infinity" prefHeight="39.0" prefWidth="300.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
@@ -66,7 +66,7 @@
                   </Button>
                </children>
             </HBox>
-            <Label fx:id="lblError" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
+            <Label fx:id="lblStatusReg" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
          </children>
       </GridPane>
    </center>

@@ -32,6 +32,7 @@ public class MainController
 	@FXML private Label lblPlayerLevel;
 
 	private int lastX,lastY,enemyMaxHealth;
+	private String username;
 
 	public static Player player = new Player("name", 100, 5, 10, 10, 10, 0, 1, 0, 0);
 	public static Level level = new Level();
@@ -541,7 +542,12 @@ public class MainController
 	{
 		lblPlayerLevel.setText("level: " + Integer.toString(player.getLevel()));
 	}
-
+	
+	public void setUsername(String user)
+	{
+		this.username = user;
+	}
+	
 	public void useItem(int number){
 		System.out.println(number);
 		number=number-1;
