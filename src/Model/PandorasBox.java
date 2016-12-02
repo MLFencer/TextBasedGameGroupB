@@ -5,16 +5,16 @@ import java.util.Random;
 
 public class PandorasBox {
 
-	private Enemy e1= new Enemy("Hydra",30,15,0,0,0,10,1);
-	private Enemy e2= new Enemy("Scarlac",30,15,0,0,0,10,1);
-	private Enemy e3= new Enemy("Kree Warrior",40,15,0,0,0,10,1);
-	private Enemy e4= new Enemy("Skeleton Warrior",10,15,0,0,0,10,1);
-	private Enemy e5= new Enemy("Living Armor",15,15,0,0,0,10,1);
-	private Enemy e6= new Enemy("Killer Croc",50,15,0,0,0,10,1);
-	private Enemy e7= new Enemy("John Cena",50,20,0,0,0,10,1);
-	private Enemy e8= new Enemy("Klingon Warrior",40,15,0,0,0,10,1);
-	private Enemy e9= new Enemy("StormTrooper",15,5,0,0,0,10,1);
-	private Enemy e0= new Enemy("Brown Coat",20,15,0,0,0,10,1);
+	private Enemy e1= new Enemy("Hydra",30,15,0,0,0,90,1);
+	private Enemy e2= new Enemy("Scarlac",30,15,0,0,0,90,1);
+	private Enemy e3= new Enemy("Kree Warrior",40,15,0,0,0,90,1);
+	private Enemy e4= new Enemy("Skeleton Warrior",10,15,0,0,0,90,1);
+	private Enemy e5= new Enemy("Living Armor",15,15,0,0,0,90,1);
+	private Enemy e6= new Enemy("Killer Croc",50,15,0,0,0,90,1);
+	private Enemy e7= new Enemy("John Cena",50,20,0,0,0,90,1);
+	private Enemy e8= new Enemy("Klingon Warrior",40,15,0,0,0,90,1);
+	private Enemy e9= new Enemy("StormTrooper",15,5,0,0,0,90,1);
+	private Enemy e0= new Enemy("Brown Coat",20,15,0,0,0,90,1);
 
 
 	private Item i1= new Item("Excalibur", 30, Item.types.Weapon, Item.weaponTypes.Light, 10);

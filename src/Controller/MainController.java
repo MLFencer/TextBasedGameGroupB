@@ -44,11 +44,13 @@ public class MainController
 	public void initialize(){
 		txtPlayerActions.requestFocus();
 		txtAreaEvents.appendText("Welcome to Concept Killer!\nPlease Enter Commands in the TextField to Play.\n");
+		System.out.println(player.getXp() + " / " + player.getNextLevel());
 		//gameStatus="starting";
 		gameStatus="main";		
 		level.generateMap();
 		showHelp();
 		barUpdates();
+		nameLabelUpdates();
 		PandorasBox pan = new PandorasBox();
 		player.setActiveWeapon(pan.fist);
 		Item h=pan.i7;
@@ -264,12 +266,14 @@ public class MainController
 					timer.cancel();
 					txtAreaEvents.appendText("The enemy died!\n");
 					lblStatus.setText("");
-					txtAreaEvents.appendText(player.gainXp(level.getEnemy(player.getX(), player.getY()).getXp()));
+					txtAreaEvents.appendText(player.gainXp(level.getEnemy(player.getX(), player.getY()).getXp()));					
 					gameStatus="main";
 					level.setEnemy(player.getX(), player.getY(), null);
 					txtAreaRoom.setText(level.getRoom(player.getX(), player.getY()));
 					barUpdates();
 					levelLabelUpdates();
+					nameLabelUpdates();
+					System.out.println(player.getXp() + " / " + player.getNextLevel());
 					showHelp();
 				}
 				if(player.getHp() == 0)
@@ -407,11 +411,11 @@ public class MainController
 			long elapsedTime = System.nanoTime() - startTime;
 
 			System.out.println(aType);
-			if(aType == 0)
+			if(aType == 0 && level.getEnemy(player.getX(), player.getY()) != null)
 			{
 				txtAreaEvents.appendText(level.getEnemy(player.getX(), player.getY()).getName()+" did "+Integer.toString(player.takeDmg(level.getEnemy(player.getX(), player.getY()).attack(0) - 3)) + " damage to you!\n");
 			}
-			if(aType == 1)
+			if(aType == 1 && level.getEnemy(player.getX(), player.getY()) != null)
 			{
 				txtAreaEvents.appendText(level.getEnemy(player.getX(), player.getY()).getName()+" did "+Integer.toString(player.takeDmg(level.getEnemy(player.getX(), player.getY()).attack(0))) + " damage to you!\n");
 			}
